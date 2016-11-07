@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<!-- Index -->
+
+	
+	<bean id="fhProductDao" class="com.fredhopper.connector.template.index.dao.impl.DefaultFhProductDao">
+	    <property name="findCatalogVersionStrategy" ref="fhFindProductCatalogVersionStrategy"/>
+	    <property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	
+		
+	<bean id="fhCategoryDao" class="com.fredhopper.connector.template.index.dao.impl.DefaultFhCategoryDao"/>
+	
+
+
+
+	<!-- Apparel Specific -->
+	<alias name="defaultGenderProvider" alias="genderProvider" />
+	<bean id="defaultGenderProvider" class="com.fredhopper.connector.template.index.provider.GenderProvider" parent="abstractAttributeProvider"/>
+	
+	<bean id="categoryCollectionsCodeProvider" class="com.fredhopper.connector.index.provider.CategoryCodeProvider" parent="abstractAttributeProvider">
+		<property name="i18nService" ref="i18nService" />
+		<property name="categorySource" ref="fhCollectionsSource" />
+		<property name="modelService" ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
+	</bean>
+	
+	<bean id="categoryCollectionsNameProvider" class="com.fredhopper.connector.index.provider.CategoryNameProvider" parent="abstractAttributeProvider">
+	<property name="i18nService" ref="i18nService" />
+		<property name="categorySource" ref="fhCollectionsSource" />
+		<property name="modelService" ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
+	</bean>
+	
+	<bean id="fhCollectionsSource" parent="fhCategorySource">
+		<property name="rootCategoryCodes">
+	    	<set value-type="java.lang.String">
+	    		<value>collections</value>
+	    	</set>
+	    </property>
+	</bean>	
+	
+	
+	<!-- Query -->
+
+	<alias name="defaultFhDocumentSearchResultValuePopulator" alias="fhDocumentSearchResultValuePopulator" />
+	<bean id="defaultFhDocumentSearchResultValuePopulator"
+		class="com.fredhopper.connector.template.query.populators.response.DocumentSearchResultValuePopulator" >
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="imageFormatMapping" ref="fhImageFormatMapping" />
+	</bean>
+
+	<bean id="fhImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="image_515" value="img-515Wx515H"/>
+				<entry key="image_300" value="img-300Wx300H"/>
+				<entry key="image_96" value="img-96Wx96H"/>
+				<entry key="image_65" value="img-65Wx65H"/>
+				<entry key="image_30" value="img-30Wx30H"/>
+			</map>
+		</property>
+	</bean>
+</beans>

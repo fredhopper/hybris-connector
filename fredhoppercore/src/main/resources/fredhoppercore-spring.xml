@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+
+
+
+	<!-- Validators -->
+
+	<bean id="sanitizeIdStrategy"
+		class="com.fredhopper.core.connector.index.generate.validator.SanitizeIdStrategy">
+		<property name="replacement" value="20" />
+	</bean>
+
+
+
+
+
+
+
+	<!-- Exporters -->
+
+
+
+	<bean id="categoryExporter"
+		class="com.fredhopper.core.connector.index.generate.engine.CategoryExporter">
+		<property name="validators">
+			<util:set>
+				<bean
+					class="com.fredhopper.core.connector.index.generate.validator.CategoryDataValidator" />
+			</util:set>
+		</property>
+		<property name="fileName" value="categories.csv" />
+		<property name="header">
+			<list>
+				<value>category_id</value>
+				<value>parent_category_id</value>
+				<value>locale</value>
+				<value>name</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="metaAttributeExporter"
+		class="com.fredhopper.core.connector.index.generate.engine.MetaAttributeExporter">
+		<property name="validators">
+			<util:set>
+				<bean
+					class="com.fredhopper.core.connector.index.generate.validator.MetaAttributeDataValidator" />
+			</util:set>
+		</property>
+		<property name="fileName" value="custom_attributes_meta.csv" />
+		<property name="header">
+			<list>
+				<value>attribute_id</value>
+				<value>type</value>
+				<value>locale</value>
+				<value>name</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="productExporter"
+		class="com.fredhopper.core.connector.index.generate.engine.ProductExporter">
+		<property name="validators">
+			<util:set>
+				<bean
+					class="com.fredhopper.core.connector.index.generate.validator.ProductDataValidator" />
+			</util:set>
+		</property>
+		<property name="fileName" value="products.csv" />
+		<property name="attributeExporter" ref="productAttributeExporter" />
+		<property name="variantExporter" ref="variantExporter" />
+		<property name="header">
+			<list>
+				<value>product_id</value>
+				<value>locale</value>
+				<value>category_ids</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="variantExporter"
+		class="com.fredhopper.core.connector.index.generate.engine.VariantExporter">
+		<property name="validators">
+			<util:set>
+				<bean id="variantValidator"
+					class="com.fredhopper.core.connector.index.generate.validator.VariantDataValidator" />
+
+			</util:set>
+		</property>
+		<property name="fileName" value="variants.csv" />
+		<property name="attributeExporter" ref="variantAttributeExporter" />
+		<property name="header">
+			<list>
+				<value>variant_id</value>
+				<value>product_id</value>
+				<value>locale</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="productAttributeExporter"
+		class="com.fredhopper.core.connector.index.generate.engine.AttributeExporter">
+		<property name="validators" ref="attributeValidators" />
+		<property name="fileName" value="custom_attributes_values.csv" />
+		<property name="header">
+			<list>
+				<value>product_id</value>
+				<value>locale</value>
+				<value>attribute_id</value>
+				<value>attribute_value_id</value>
+				<value>attribute_value</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="variantAttributeExporter"
+		class="com.fredhopper.core.connector.index.generate.engine.AttributeExporter">
+		<property name="validators" ref="attributeValidators" />
+		<property name="fileName" value="custom_variant_attributes.csv" />
+		<property name="header">
+			<list>
+				<value>variant_id</value>
+				<value>locale</value>
+				<value>attribute_id</value>
+				<value>attribute_value_id</value>
+				<value>attribute_value</value>
+			</list>
+		</property>
+	</bean>
+
+	<util:set id="attributeValidators">
+		<ref bean="assetAttributeValidator" />
+		<ref bean="floatAttributeValidator" />
+		<ref bean="intAttributeValidator" />
+		<ref bean="listAttributeValidator" />
+		<ref bean="list64AttributeValidator" />
+		<ref bean="setAttributeValidator" />
+		<ref bean="set64AttributeValidator" />
+		<ref bean="textAttributeValidator" />
+	</util:set>
+
+
+	<bean id="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.AbstractAttributeValidator"
+		abstract="true" />
+
+	<bean id="assetAttributeValidator" parent="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.AssetAttributeValidator" />
+	<bean id="floatAttributeValidator" parent="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.FloatAttributeValidator" />
+	<bean id="intAttributeValidator" parent="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.IntAttributeValidator" />
+	<bean id="listAttributeValidator" parent="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.ListAttributeValidator" />
+	<bean id="list64AttributeValidator" parent="listAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.List64AttributeValidator" />
+	<bean id="setAttributeValidator" parent="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.SetAttributeValidator" />
+	<bean id="set64AttributeValidator" parent="setAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.Set64AttributeValidator" />
+	<bean id="textAttributeValidator" parent="abstractAttributeValidator"
+		class="com.fredhopper.core.connector.index.generate.validator.TextAttributeValidator" />
+
+
+
+
+
+	<alias name="defaultGenerator" alias="fhGenerator" />
+	<bean id="defaultGenerator"
+		class="com.fredhopper.core.connector.index.generate.impl.DefaultGenerator">
+		<property name="categoryExporter" ref="categoryExporter" />
+		<property name="metaAttributeExporter" ref="metaAttributeExporter" />
+		<property name="productExporter" ref="productExporter" />
+	</bean>
+
+	<bean id="restPublishingStrategy"
+		class="com.fredhopper.core.connector.index.upload.impl.RestPublishingStrategy" >
+		<property name="restTemplateProvider" ref="restTemplateProvider"/>
+	</bean>
+		
+	<bean id="restTemplateProvider"
+		class="com.fredhopper.core.connector.index.upload.impl.RestTemplateProvider" />
+
+
+	<alias name="defaultPublishingService" alias="fhPublishingService" />
+	<bean id="defaultPublishingService"
+		class="com.fredhopper.core.connector.index.upload.impl.DefaultPublishingService">
+		<property name="publishingStrategy" ref="restPublishingStrategy" />
+	</bean>
+
+
+</beans>

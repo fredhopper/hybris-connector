@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<enumtypes>
+		<enumtype generate="true" code="AttributeBaseType"
+			autocreate="true" dynamic="true">
+			<value code="INT" />
+			<value code="FLOAT" />
+			<value code="LIST" />
+			<value code="LIST64" />
+			<value code="SET" />
+			<value code="SET64" />
+			<value code="HIERARCHICAL" />
+			<value code="TEXT" />
+			<value code="ASSET" />
+			<value code="REF" />
+		</enumtype>
+	</enumtypes>
+
+	<relations>
+		<relation code="FredhopperIndexConfig2MetaAttributeRelation"
+			autocreate="true" localized="false">
+			<deployment table="FrdhConfig2MetaAttr" typecode="32736" />
+			<sourceElement qualifier="indexConfigurations" type="FredhopperIndexConfig"
+				cardinality="many" collectiontype="set">
+				<modifiers optional="true" read="true" write="true"
+					search="true" />
+			</sourceElement>
+			<targetElement qualifier="metaAttributes" type="MetaAttribute"
+				cardinality="many" collectiontype="set">
+				<modifiers optional="true" read="true" write="true"
+					search="true" />
+			</targetElement>
+		</relation>
+	</relations>
+
+	<itemtypes>
+		<itemtype code="FredhopperIndexExportCronJob" autocreate="true"
+			generate="true" extends="CronJob"
+			jaloclass="com.fredhopper.jalo.export.cron.FredhopperIndexExportCronJob">
+			<attributes>
+				<attribute type="FredhopperIndexConfig" qualifier="indexConfig">
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute type="boolean" qualifier="upload">
+					<modifiers read="true" write="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="FredhopperIndexConfig"
+			jaloclass="com.fredhopper.jalo.export.config.FredhopperIndexConfig"
+			extends="GenericItem">
+			<deployment table="IndexConfigs" typecode="32737" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<modifiers initial="true" read="true" write="false"
+						optional="false" search="true" unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="locales" type="StringCollection">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="MetaAttribute"
+			jaloclass="com.fredhopper.jalo.export.data.MetaAttribute" extends="GenericItem">
+			<deployment table="MetaAttributes" typecode="32747" />
+			<attributes>
+				<attribute qualifier="attributeId" type="java.lang.String">
+					<modifiers read="true" write="true"
+						optional="false" search="true" unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="baseType" type="AttributeBaseType">
+					<modifiers read="true" write="true"
+						optional="false" search="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="variantAttribute" type="boolean">
+					<modifiers read="true" write="true" search="true" />
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="name" type="localized:java.lang.String">
+					<modifiers read="true" write="true" search="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="provider" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="classAttributeAssignment" type="ClassAttributeAssignment">
+						<description>The classification system category feature for this property.</description>
+						<persistence type="property" />
+				</attribute>
+				<attribute qualifier="qualifier" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+</items>

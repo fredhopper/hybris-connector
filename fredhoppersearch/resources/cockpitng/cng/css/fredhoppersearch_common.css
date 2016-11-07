@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+/*Icons for explorer tree */
+div.yw-explorerTree .y-tree-icon-hmc_type_tree_fredhoppercronjob .y-tree-icon {
+    background-image: url("icons/023_cronJobs.png");
+}
+div.yw-explorerTree .y-tree-icon-hmc_type_tree_fredhopperconfig .y-tree-icon
+{
+    background-image: url("icons/0124_task.png");
+}
+div.yw-explorerTree .y-tree-icon-hmc_type_tree_metaattribute .y-tree-icon
+{
+    background-image: url("icons/0125_task_condition.png");
+}

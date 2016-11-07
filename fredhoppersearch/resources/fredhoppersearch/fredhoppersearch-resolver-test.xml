@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ [y] hybris Platform ~ ~ Copyright (c) 2000-2016 hybris AG ~ All rights 
+	reserved. ~ ~ This software is the confidential and proprietary information 
+	of hybris ~ ("Confidential Information"). You shall not disclose such Confidential 
+	~ Information and shall use it only in accordance with the terms of the ~ 
+	license agreement you entered into with hybris. -->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<util:set id="localesEnDe" value-type="java.util.Locale">
+		<value>en</value>
+		<value>de</value>
+	</util:set>
+	
+
+	
+	<bean id="simpleAttributeProvider" class="com.fredhopper.connector.index.provider.SimpleAttributeProvider"/>
+
+	<bean id="classificationAttributeProvider" class="com.fredhopper.connector.index.provider.ClassificationAttributeProvider"/>
+	
+	
+	<bean id="springProviderResolver" class="com.fredhopper.connector.index.provider.SpringProviderResolver">
+		<property name="defaultAttributeProvider" ref="simpleAttributeProvider"/>
+	</bean>
+	
+	
+	
+</beans>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="/platform"/>
+	<classpathentry exported="true" kind="lib" path="resources"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/fluent-hc-4.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-cache-4.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime-4.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="src"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="testsrc"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="gensrc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/acceleratorservices"/>
+	<classpathentry exported="true" kind="lib" path="lib/query-lang-2.17.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ws-client-1.7.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/commercefacades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fredhoppercore"/>
+	<classpathentry kind="src" path="/commerceservices"/>
+	<classpathentry exported="true" kind="lib" path="lib/fredhoppercore-1.0.0.jar"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+</classpath>

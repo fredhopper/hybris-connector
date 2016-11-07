@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="fhIndexerJob" class="com.fredhopper.connector.index.job.FredhopperIndexExportJob" parent="abstractJobPerformable" >
+		<property name="fhIndexer" ref="fhIndexer" />
+	</bean>
+	
+	<bean id="indexConfigService" class="com.fredhopper.connector.config.DefaultIndexConfigService">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<alias name="defaultFhIndexer" alias="fhIndexer" />
+	<bean id="defaultFhIndexer" class="com.fredhopper.core.connector.index.impl.DefaultIndexer">
+		<property name="instanceConfigService" ref="instanceConfigService"/>
+		<property name="dataDirectoryResource" value="${fh.data.directory}" />
+		<property name="collectorFactory" ref="fhCollectorFactory" />
+		<property name="generator" ref="fhGenerator" />
+		<property name="publishingService" ref="fhPublishingService" />
+		<property name="prePublishingHooks">
+			<list/>
+		</property>
+		<property name="postPublishingHooks">
+			<list>
+				<bean id="cleanupHook"
+					class="com.fredhopper.core.connector.index.impl.CleanupHook" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="instanceConfigService"
+		class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+		<property name="serviceLocatorInterface"
+			value="com.fredhopper.core.connector.config.InstanceConfigService" />
+	</bean>
+
+	<bean id="defaultInstanceConfig" class="com.fredhopper.core.connector.config.InstanceConfig">
+		<property name="scheme" value="https" />
+		<property name="host" value="${fh.instance.host}" />
+		<property name="port" value="${fh.instance.port}" />
+		<property name="servername" value="${fh.instance.servername}" />
+		<property name="username" value="${fh.instance.username}" />
+		<property name="password" value="${fh.instance.password}" />
+	</bean>
+	
+	<bean id="fhCollectorFactory" class="com.fredhopper.connector.index.collector.ConfigurableCollectorFactory"/>
+
+
+
+	<!-- Meta Attribute  -->
+
+	<bean id="defaultfhMetaAttributeCollector" class="com.fredhopper.connector.index.collector.DefaultMetaAttributeCollector">
+		<property name="indexCode" value="default"/>
+	    <property name="indexConfigService" ref="indexConfigService"/>
+	</bean>
+	
+	
+	<!-- Categories -->
+	
+	<bean id="defaultfhCategoryCollector" class="com.fredhopper.connector.index.collector.DefaultCategoryDataCollector">
+		<property name="indexCode" value="default"/>
+	    <property name="indexConfigService" ref="indexConfigService"/>
+	    <property name="categorySource" ref="fhCategoriesSource"/>
+	    <property name="fhCategoryDao" ref="fhCategoryDao"/>
+	    <property name="converter" ref="fhCategoryConverter"/>
+	    <property name="universe" value="${fh.instance.universe}"/>
+	</bean>
+	
+
+	<bean id="fhCategoryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.fredhopper.core.connector.index.generate.data.FhCategoryData" />
+		<property name="populators">
+			<list>
+				<bean id="fhCategoryPopulator"
+					class="com.fredhopper.connector.index.populator.CategoryPopulator" >
+					<property name="parentCategoryResolver" ref="parentCategoryResolver"/>
+					<property name="sanitizeIdStrategy" ref="sanitizeIdStrategy"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="parentCategoryResolver" class="com.fredhopper.connector.index.populator.DefaultParentCategoryResolver"/>
+
+	<!--  Products -->
+	
+	<bean id="defaultfhProductCollector" class="com.fredhopper.connector.index.collector.DefaultProductDataCollector">
+		<property name="indexCode" value="default"/>
+	    <property name="indexConfigService" ref="indexConfigService"/>
+	    <property name="fhProductDao" ref="fhProductDao"/>
+	    <property name="converter" ref="fhProductConverter"/>
+	    <property name="batchSize" value="100"/>
+	</bean>
+
+	<bean id="fhFindProductCatalogVersionStrategy" class="com.fredhopper.connector.index.dao.impl.FindProductCatalogVersionStrategy">
+	    <property name="productCatalogId" value="${fh.product.catalog.name}" />
+	    <property name="productCatalogVersionId" value="${fh.product.catalog.version}" />
+	    <property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+	
+	<bean id="defaultCategoryFilterStrategy" class="com.fredhopper.connector.index.filter.DefaultCategoryFilterStrategy">
+		<property name="findCatalogVersionStrategy" ref="fhFindProductCatalogVersionStrategy"/>
+	</bean>
+	
+	
+
+	<bean id="fhProductConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.fredhopper.core.connector.index.generate.data.FhProductData" />
+		<property name="populators">
+			<list>
+				<bean id="productEssentialsPopulator"
+					class="com.fredhopper.connector.index.populator.ProductEssentialsPopulator">
+					<property name="sanitizeIdStrategy" ref="sanitizeIdStrategy"/>
+					<property name="categoryFilterStrategy" ref="defaultCategoryFilterStrategy"/>
+					<property name="categorySource" ref="fhCategoriesSource"/>	
+				</bean>
+				<ref bean="customBaseAttributesPopulator"/>
+				<bean id="productVariantsPopulator"
+					class="com.fredhopper.connector.index.populator.ProductVariantsPopulator">
+					<property name="variantConverter" ref="fhVariantConverter" />
+					<property name="sanitizeIdStrategy" ref="sanitizeIdStrategy"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="customBaseAttributesPopulator"
+		class="com.fredhopper.connector.index.populator.AttributesPopulator">
+		<property name="providerResolver" ref="springProviderResolver" />
+		<property name="variant" value="false" />
+	</bean>
+	
+	<bean id="customVariantAttributesPopulator"
+		class="com.fredhopper.connector.index.populator.AttributesPopulator">
+		<property name="providerResolver" ref="springProviderResolver" />
+		<property name="variant" value="true" />
+	</bean>
+	
+	<bean id="fhVariantConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.fredhopper.core.connector.index.generate.data.FhVariantData" />
+		<property name="populators">
+			<list>
+				<bean id="variantEssentialPopulator"
+					class="com.fredhopper.connector.index.populator.VariantEssentialsPopulator">
+					<property name="sanitizeIdStrategy" ref="sanitizeIdStrategy"/>
+				</bean>
+				<ref bean="customVariantAttributesPopulator"/>
+			</list>
+		</property>
+	</bean>	
+	
+	<!--  Providers -->
+	
+	<bean id="springProviderResolver" class="com.fredhopper.connector.index.provider.SpringProviderResolver">
+		<property name="defaultAttributeProvider" ref="simpleAttributeProvider"/>
+	</bean>
+	
+	<bean id="abstractAttributeProvider" class="com.fredhopper.connector.index.provider.AbstractAttributeProvider" abstract="true">
+		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
+	</bean>
+	
+	<bean id="simpleAttributeProvider" class="com.fredhopper.connector.index.provider.SimpleAttributeProvider">
+		<property name="i18nService" ref="i18nService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="variantsService" ref="variantsService"/>
+		<property name="sanitizeIdStrategy" ref="sanitizeIdStrategy"/>
+	</bean>
+	
+	<alias name="defaultProductUrlProvider" alias="productUrlProvider" />
+	<bean id="defaultProductUrlProvider" class="com.fredhopper.connector.index.provider.ProductUrlProvider" parent="abstractAttributeProvider">
+		<property name="urlResolver" ref="productModelUrlResolver"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+		
+	<bean id="productInStockProvider" class="com.fredhopper.connector.index.provider.ProductInStockProvider" parent="abstractAttributeProvider">
+		<property name="baseSite" value="apparel-uk"/>
+		<property name="commerceStockService" ref="commerceStockService"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<bean id="imageURLProvider" 
+		class="com.fredhopper.connector.index.provider.ImageUrlProvider" parent="abstractAttributeProvider">
+		<property name="mediaService" ref="mediaService" />
+		<property name="mediaContainerService" ref="mediaContainerService" />
+	</bean>
+	
+	<bean id="categoryBrandCodeProvider" class="com.fredhopper.connector.index.provider.CategoryCodeProvider" parent="abstractAttributeProvider">
+		<property name="categorySource" ref="fhBrandsSource" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="modelService" ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
+	</bean>
+	
+	<bean id="categoryBrandNameProvider" class="com.fredhopper.connector.index.provider.CategoryNameProvider" parent="abstractAttributeProvider">
+		<property name="categorySource" ref="fhBrandsSource" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="modelService" ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
+	</bean>
+	
+	
+	<bean id="allCategoriesCodeProvider" class="com.fredhopper.connector.index.provider.CategoryCodeProvider" parent="abstractAttributeProvider">
+		<property name="categorySource" ref="fhAllCategoriesSource" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="modelService" ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
+	</bean>
+	
+	<bean id="fhCategorySource" class="com.fredhopper.connector.index.provider.FHCategorySource">
+		<property name="categoriesQualifier" value="supercategories" />
+		<property name="modelService" ref="modelService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="findCatalogVersionStrategy" ref="fhFindProductCatalogVersionStrategy" />
+		<property name="includeClassificationClasses" value="false" />
+	</bean>	
+	
+	<bean id="fhAllCategoriesSource" parent="fhCategorySource">
+		 <property name="rootCategoryCodes">
+	    	<set value-type="java.lang.String">
+	    		<value>categories</value>
+	    		<value>brands</value>
+	    		<value>collections</value>
+	    	</set>
+	    </property>
+	</bean>
+	
+	<bean id="fhCategoriesSource" parent="fhCategorySource">
+		<property name="rootCategoryCodes">
+	    	<set value-type="java.lang.String">
+	    		<value>categories</value>
+	    	</set>
+	    </property>
+	</bean>	
+	
+	<bean id="fhBrandsSource" parent="fhCategorySource">
+		<property name="rootCategoryCodes">
+	    	<set value-type="java.lang.String">
+	    		<value>brands</value>
+	    	</set>
+	    </property>
+	</bean>	
+	
+	<bean id="image515UrlProvider" parent="imageURLProvider" >
+		<property name="mediaFormat" value="515Wx515H"/>
+	</bean>
+	<bean id="image300UrlProvider" parent="imageURLProvider" >
+		<property name="mediaFormat" value="300Wx300H"/>
+	</bean>
+	<bean id="image96UrlProvider" parent="imageURLProvider" >
+		<property name="mediaFormat" value="96Wx96H"/>
+	</bean>
+	<bean id="image65UrlProvider" parent="imageURLProvider" >
+		<property name="mediaFormat" value="65Wx65H"/>
+	</bean>
+	<bean id="image30UrlProvider" parent="imageURLProvider" >
+		<property name="mediaFormat" value="30Wx30H"/>
+	</bean>
+
+	<bean id="fhProductPriceValueProvider"
+		class="com.fredhopper.connector.index.provider.ProductPriceValueProvider">
+		<property name="priceService" ref="priceService" />
+	</bean>
+
+</beans>

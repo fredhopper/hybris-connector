@@ -1,0 +1,149 @@
+/*******************************************************************************
+ * Copyright 2016 Fredhopper B.V.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+package com.fredhopper.connector.index.provider;
+
+import de.hybris.platform.basecommerce.enums.StockLevelStatus;
+import de.hybris.platform.commerceservices.stock.CommerceStockService;
+import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.store.BaseStoreModel;
+
+import java.util.Collection;
+import java.util.Locale;
+import java.util.Optional;
+
+import org.apache.commons.collections.CollectionUtils;
+
+import com.fredhopper.connector.config.data.MetaAttributeData;
+import com.google.common.collect.HashBasedTable;
+
+
+/**
+ *
+ */
+public class ProductInStockProvider extends AbstractAttributeProvider
+{
+	private String baseSite;
+
+	private CommerceStockService commerceStockService;
+
+	private FlexibleSearchService flexibleSearchService;
+
+	@Override
+	public HashBasedTable<Optional<String>, Optional<Locale>, String> getAttributeValue(final Collection<Locale> locales,
+			final ProductModel product, final MetaAttributeData metaAttribute)
+	{
+		final HashBasedTable<Optional<String>, Optional<Locale>, String> table = HashBasedTable.create();
+
+		final BaseStoreModel store = new BaseStoreModel();
+		store.setUid(baseSite);
+		final BaseStoreModel baseStore = flexibleSearchService.getModelByExample(store);
+
+		final String value;
+		if (getCommerceStockService().isStockSystemEnabled(baseStore))
+		{
+			value = String.valueOf(isInStock(product, baseStore));
+		}
+		else
+		{
+			value = String.valueOf(false);
+		}
+		if (CollectionUtils.isNotEmpty(locales) && isLocalizedAttribute(metaAttribute))
+		{
+
+			for (final Locale locale : locales)
+			{
+				addValues(table, locale, value, metaAttribute);
+			}
+		}
+		else
+		{
+			addValues(table, null, value, metaAttribute);
+		}
+
+		return table;
+
+	}
+
+	protected boolean isInStock(final ProductModel product, final BaseStoreModel baseStore)
+	{
+		return isInStock(getProductStockLevelStatus(product, baseStore));
+	}
+
+	protected boolean isInStock(final StockLevelStatus stockLevelStatus)
+	{
+		return stockLevelStatus != null && !StockLevelStatus.OUTOFSTOCK.equals(stockLevelStatus);
+	}
+
+	protected StockLevelStatus getProductStockLevelStatus(final ProductModel product, final BaseStoreModel baseStore)
+	{
+		return getCommerceStockService().getStockLevelStatusForProductAndBaseStore(product, baseStore);
+	}
+
+
+	/**
+	 * @return the commerceStockService
+	 */
+	public CommerceStockService getCommerceStockService()
+	{
+		return commerceStockService;
+	}
+
+	/**
+	 * @param commerceStockService
+	 *           the commerceStockService to set
+	 */
+	public void setCommerceStockService(final CommerceStockService commerceStockService)
+	{
+		this.commerceStockService = commerceStockService;
+	}
+
+	/**
+	 * @return the baseSite
+	 */
+	public String getBaseSite()
+	{
+		return baseSite;
+	}
+
+	/**
+	 * @param baseSite
+	 *           the baseSite to set
+	 */
+	public void setBaseSite(final String baseSite)
+	{
+		this.baseSite = baseSite;
+	}
+
+	/**
+	 * @return the flexibleSearchService
+	 */
+	public FlexibleSearchService getFlexibleSearchService()
+	{
+		return flexibleSearchService;
+	}
+
+	/**
+	 * @param flexibleSearchService
+	 *           the flexibleSearchService to set
+	 */
+	public void setFlexibleSearchService(final FlexibleSearchService flexibleSearchService)
+	{
+		this.flexibleSearchService = flexibleSearchService;
+	}
+
+
+}

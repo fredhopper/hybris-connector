@@ -1,0 +1,33 @@
+INSERT_UPDATE FredhopperIndexExportCronJob;code[unique=true];job(code);indexConfig(code);sessionLanguage(isoCode)
+;fredhopperIndexExportJob;fhIndexerJob;default;en
+
+INSERT_UPDATE FredhopperIndexConfig;code[unique=true];locales;metaAttributes(attributeId)
+;default;en_GB,de_DE;
+
+INSERT_UPDATE MetaAttribute;attributeId[unique=true];baseType(code);qualifier;variantAttribute[default=false];name[lang=en];name[lang=de];provider;classAttributeAssignment;indexConfigurations(code[default='default'])
+;name;ASSET;name;false;Product name;Product name;;;
+;description;ASSET;description;false;Product description;Product description;;;
+;summary;ASSET;summary;false;Product summary;Product summary;;;
+;ean;TEXT;ean;false;Product EAN;Product EAN;;;
+;manufacturer_name;TEXT;manufacturerName;false;Manufacturer Name;Manufacturer Name;;;
+;manufacturer_aid;TEXT;manufacturerAID;false;Manufacturer AID;Manufacturer AID;;;
+;ean;TEXT;ean;false;Product EAN;Product EAN;;;
+;url;ASSET;;true;URL;URL;productUrlProvider;;
+;style;SET;style;false;Style;Style;;;
+;size;SET;size;true;Size;Size;;;
+;genders;TEXT;;;Genders;Genders;genderProvider
+;image_515;TEXT;;;Image 515x515;Image 515x515;image515UrlProvider;;
+;image_300;TEXT;;;Image 300x300;Image 300x300;image300UrlProvider;;
+;image_96;TEXT;;;Image 96x96;Image 96x96;image96UrlProvider;;
+;image_65;TEXT;;;Image 65x65;Image 65x65;image65UrlProvider;;
+;image_30;TEXT;;;Image 30x30;Image 30x30;image30UrlProvider;;
+;brand;SET;;;brand;brand;categoryBrandCodeProvider;;
+;brand_name;SET;;;brandName;brandName;categoryBrandNameProvider;;
+;collection;SET;;;collection;collection;categoryCollectionsCodeProvider;;
+;collection_name;SET;;;collectionName;collectionName;categoryCollectionsNameProvider;;
+;price_eur;FLOAT;;;Price EUR;Price EUR;fhProductPriceValueProvider;;
+;price_gbp;FLOAT;;;Price GBP;Price GBP;fhProductPriceValueProvider;;
+;product_instock;TEXT;;;product_instock;product_instock;productInStockProvider;;
+;allcategories;SET;;;allcategories;allcategories;allCategoriesCodeProvider;;
+;code;TEXT;code;false;Base Product Code;Base Product Code;;;
+;variant_code;TEXT;code;true;Variant Code;Variant Code;;;

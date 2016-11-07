@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<config xmlns="http://www.hybris.com/cockpit/config">
+<context merge-by="module" parent="auto" component="explorer-tree">
+		<explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+			<explorer-tree:navigation-node id="hmc_treenode_system" merge-mode="append">
+				<explorer-tree:navigation-node id="hmc.fredhoppersearch">
+					<explorer-tree:type-node code="FredhopperIndexExportCronJob" id="hmc_type_tree_fredhoppercronjob"/>
+					<explorer-tree:type-node code="FredhopperIndexConfig" id="hmc_type_tree_fredhopperconfig"/>
+					<explorer-tree:type-node code="MetaAttribute" id="hmc_type_tree_metaattribute"/>
+				</explorer-tree:navigation-node>
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+	
+	<context merge-by="type" parent="GenericItem" type="FredhopperIndexConfig" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="code"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" parent="GenericItem" type="MetaAttribute" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="attributeId"/>
+			<list-view:column qualifier="baseType"/>
+			<list-view:column qualifier="variantAttribute"/>
+		</list-view:list-view>
+	</context>
+	
+	<context merge-by="type" parent="GenericItem" type="FredhopperIndexConfig" component="base">
+	    <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+	        <y:labels>
+	            <y:label>code</y:label>
+	        </y:labels>
+	    </y:base>
+	</context>
+	<context merge-by="type" parent="GenericItem" type="FredhopperIndexExportCronJob" component="base">
+	    <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+	        <y:labels>
+	            <y:label>code</y:label>
+	        </y:labels>
+	    </y:base>
+	</context>
+	<context merge-by="type" parent="GenericItem" type="MetaAttribute" component="base">
+	    <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+	        <y:labels>
+	            <y:label>attributeId + ' (' + baseType + ')'</y:label>
+	        </y:labels>
+	    </y:base>
+	</context>
+	
+	<context merge-by="type" parent="GenericItem" type="FredhopperIndexConfig" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+        	<editorArea:tab xmlns="http://www.hybris.com/cockpitng/component/editorArea" name="fredhopper.indexconfig.properties">
+        		<section name="fredhopper.indexconfig.general">
+        			<attribute qualifier="code"/>
+        			<attribute qualifier="locales"/>
+				</section>
+				<section name="fredhopper.indexconfig.attributes">
+        			<attribute qualifier="metaAttributes"/>
+				</section>
+			</editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" parent="CronJob" type="FredhopperIndexExportCronJob" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="hmc.tab.common">
+                <editorArea:section name="hmc.section.exportdata">
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="indexConfig"/>
+                    <editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="upload"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" parent="GenericItem" type="MetaAttribute" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+        	<editorArea:tab xmlns="http://www.hybris.com/cockpitng/component/editorArea" name="fredhopper.metaattribute.properties">
+        		<section name="fredhopper.metaattribute.general">
+        			<attribute qualifier="attributeId"/>
+        			<attribute qualifier="baseType"/>
+        			<attribute qualifier="name"/>
+        			<attribute qualifier="variantAttribute"/>
+        			<attribute qualifier="qualifier"/>
+        			<attribute qualifier="classAttributeAssignment"/>
+        			<attribute qualifier="provider"/>
+				</section>
+				<section name="fredhopper.metaattribute.indexconfigs">
+        			<attribute qualifier="indexConfigurations"/>
+				</section>
+			</editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+	
+</config>

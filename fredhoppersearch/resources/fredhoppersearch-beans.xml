@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+<!-- 	<bean class="com.fredhopper.connector.index.config.IndexConfig"> -->
+<!-- 		<property name="code" type="String" /> -->
+<!-- 		<property name="locales" type="java.util.Set&lt;java.util.Locale>" /> -->
+<!-- 		<property name="baseMetaAttributes"  type="java.util.List&lt;com.fredhopper.connector.index.config.MetaAttributeData>" /> -->
+<!-- 		<property name="variantMetaAttributes"  type="java.util.List&lt;com.fredhopper.connector.index.config.MetaAttributeData>" /> -->
+
+<!-- 	</bean> -->
+	
+<!-- 	<bean class="com.fredhopper.connector.index.config.MetaAttributeData"> -->
+<!-- 		<property name="name" type="java.util.Map&lt;java.util.Locale,String>" /> -->
+<!-- 		<property name="baseType" type="com.fredhopper.enums.AttributeBaseType" /> -->
+<!-- 		<property name="id" type="String" /> -->
+<!-- 		<property name="provider" type="String" /> -->
+<!-- 		<property name="classAttributeAssignment" type="de.hybris.platform.catalog.model.classification.ClassAttributeAssignmentModel"/> -->
+<!-- 	</bean> -->
+
+
+
+	<!--
+		Example Data POJO
+	
+	<bean class="com.fredhopper.data.AbstractPojo" abstract="true">
+		<property name="id" type="String"/>
+		<property name="flag" type="boolean"/>
+	</bean>
+
+	<bean class="com.fredhopper.data.MyPojo" extends="com.fredhopper.data.AbstractPojo">
+		<property name="message" type="String"/>
+	</bean>
+
+	<bean class="com.fredhopper.data.AnnotatedPojo">
+
+		<import type="javax.xml.bind.annotation.XmlRootElement"/>
+		<import type="javax.xml.bind.annotation.XmlElements"/>
+		<import type="javax.xml.bind.annotation.XmlElement"/>
+
+		<annotations>@XmlRootElement</annotations>
+		
+		<property name="someText" type="String">
+
+			<annotations scope="getter">
+			@XmlElements(value = {
+					@XmlElement(name="map",
+						type=ValueAsMap.class),
+					@XmlElement(name="string",
+						type=ValueAsString.class)
+			})
+			</annotations>
+
+		</property>
+
+	</bean>
+
+    <bean  class="de.hybris.platform.catalog.data.Equals1">
+    	<property name="a1" type="boolean" equals="true"/>
+    	<property name="a2" type="int" equals="true"/>
+    	<property name="a3" type="String" equals="true"/>
+    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
+    	<property name="a5" type="java.lang.Integer" equals="true"/>
+    	<property name="a6" type="java.util.List" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+	-->
+
+</beans>

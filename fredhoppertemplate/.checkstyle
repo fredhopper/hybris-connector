@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="true" sync-formatter="false">
+  <local-check-config name="Fredhopper Checkstyle" location=".checkstyle_configuration.xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <fileset name="all" enabled="true" check-config-name="Fredhopper Checkstyle" local="true">
+    <file-match-pattern match-pattern="." include-pattern="true"/>
+  </fileset>
+  <filter name="FilesFromPackage" enabled="true">
+    <filter-data value="gensrc"/>
+    <filter-data value="fyyc"/>
+    <filter-data value="src/com/fyyc"/>
+    <filter-data value="hmc/src/com/fyyc"/>
+    <filter-data value="testsrc/com/fyyc"/>
+  </filter>
+</fileset-config>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright 2016 Fredhopper B.V.
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<alias name="defaultFhProductSearchService" alias="commerceProductSearchService" />
+	<alias name="defaultFhSolrProductSearchService" alias="defaultFhProductSearchService" />
+	<bean id="defaultFhSolrProductSearchService" class="com.fredhopper.connector.query.DefaultFhProductSearchService">
+		<property name="fhQueryService" ref="fhQueryService" />
+		<property name="searchQueryPageableConverter" ref="fhSearchQueryPageableConverter" />
+		<property name="searchResponseConverter" ref="fhSolrSearchResponseConverter" />
+	</bean>
+
+	<!-- Request Converters/Populators -->
+	<bean id="fhQueryService" class="com.fredhopper.core.connector.query.service.DefaultFhQueryService">
+		<property name="fasWebService" ref="fasWebService"/>
+		<property name="maxRetries" value="${fh.query.maxretries}"/>
+	</bean>
+	
+	
+	<bean class="com.fredhopper.core.connector.query.service.DefaultFasWebserviceFactory" id="fasWebService">
+		<property name="serviceUrl" value="${fh.instance.query.url}" />
+		<property name="serviceUsername" value="${fh.instance.username}" />
+		<property name="servicePassword" value="${fh.instance.password}" />
+	</bean>
+	
+	<alias name="defaultFhSearchQueryPageableConverter" alias="fhSearchQueryPageableConverter" />
+	<bean id="defaultFhSearchQueryPageableConverter" class="com.fredhopper.connector.query.converters.SearchQueryPageableConverter" parent="abstractPopulatingConverter" >
+		<property name="populators">
+			<list>
+				<ref bean="fhSearchQueryPopulator" />
+				<ref bean="fhSearchPagePopulator" />
+				<ref bean="fhSearchSortPopulator" />
+			</list>
+		</property>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="universe" value="${fh.instance.universe}"/>
+	</bean>
+	
+	<alias name="defaultFhSearchQueryPopulator" alias="fhSearchQueryPopulator" />
+	<bean id="defaultFhSearchQueryPopulator" class="com.fredhopper.connector.query.populators.request.SearchQueryPopulator">
+		<property name="sanitizeIdStrategy" ref="sanitizeIdStrategy"/>
+	</bean>
+	
+	<alias name="defaultFhSearchPagePopulator" alias="fhSearchPagePopulator" />
+	<bean id="defaultFhSearchPagePopulator" class="com.fredhopper.connector.query.populators.request.SearchPagePopulator">
+		<property name="siteConfigService" ref="siteConfigService"/>
+	</bean>
+	
+	<alias name="defaultFhSearchSortPopulator" alias="fhSearchSortPopulator" />
+	<bean id="defaultFhSearchSortPopulator" class="com.fredhopper.connector.query.populators.request.SearchSortPopulator"/>
+
+	<!-- Response Converters/Populators -->
+
+	<alias name="defaultFhSearchResponseConverter" alias="fhSolrSearchResponseConverter" />
+	<bean id="defaultFhSearchResponseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commerceservices.search.facetdata.ProductCategorySearchPageData" />
+		<property name="populators">
+			<list>	
+				<ref bean="fhSearchResponseResultsPopulator" />
+				<ref bean="fhSearchResponseQueryPopulator" />
+				<ref bean="fhSearchResponsePaginationPopulator" />
+				<ref bean="fhSearchResponseFacetsPopulator" /> 
+				<ref bean="fhSearchResponseBreadcrumbsPopulator" />
+				<ref bean="fhSearchResponseSortsPopulator" />
+				<ref bean="fhSearchResponseFreeTextSearchPopulator" />
+				<ref bean="fhSearchResponseCategoryCodePopulator" />
+ 				<ref bean="fhSearchResponseSpellingSuggestionPopulator" />
+ 				<ref bean="fhSearchResponseKeywordRedirectPopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="defaultFhSearchResponseResultsPopulator" alias="fhSearchResponseResultsPopulator" />
+	<bean id="defaultFhSearchResponseResultsPopulator" class="com.fredhopper.connector.query.populators.response.SearchResponseResultsPopulator">
+		<property name="searchResultConverter" ref="fhDocumentSearchResultConverter" />
+	</bean>
+		
+	<alias name="defaultFhDocumentSearchResultConverter" alias="fhDocumentSearchResultConverter" />
+	<bean id="defaultFhDocumentSearchResultConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commerceservices.search.resultdata.SearchResultValueData" />
+		<property name="populators">
+			<list>
+				<ref bean="fhDocumentSearchResultValuePopulator" />
+			</list>
+		</property>
+	</bean>
+	
+
+	<alias name="defaultFhSearchResponseQueryPopulator" alias="fhSearchResponseQueryPopulator" />
+	<bean id="defaultFhSearchResponseQueryPopulator" class="com.fredhopper.connector.query.populators.response.SearchResponseQueryPopulator" />
+	
+	<alias name="defaultFhSearchResponsePaginationPopulator" alias="fhSearchResponsePaginationPopulator" />
+	<bean id="defaultFhSearchResponsePaginationPopulator" class="com.fredhopper.connector.query.populators.response.SearchResponsePaginationPopulator" />
+	
+	<alias name="defaultFhSearchResponseFacetsPopulator" alias="fhSearchResponseFacetsPopulator" />
+	<bean id="defaultFhSearchResponseFacetsPopulator" class="com.fredhopper.connector.query.populators.response.SearchResponseFacetsPopulator" />
+
+	<alias name="defaultFhSearchResponseBreadcrumbsPopulator" alias="fhSearchResponseBreadcrumbsPopulator" />
+	<bean id="defaultFhSearchResponseBreadcrumbsPopulator"
+		class="com.fredhopper.connector.query.populators.response.SearchResponseBreadcrumbsPopulator" />
+		
+	<alias name="defaultFhSearchResponseFreeTextSearchPopulator" alias="fhSearchResponseFreeTextSearchPopulator" />
+	<bean id="defaultFhSearchResponseFreeTextSearchPopulator"
+		class="com.fredhopper.connector.query.populators.response.SearchResponseFreeTextSearchPopulator" />
+		
+	<alias name="defaultFhSearchResponseKeywordRedirectPopulator" alias="fhSearchResponseKeywordRedirectPopulator" />
+	<bean id="defaultFhSearchResponseKeywordRedirectPopulator"
+		class="com.fredhopper.connector.query.populators.response.SearchResponseKeywordRedirectPopulator" />
+	
+
+	<alias name="defaultFhSearchResponseSortsPopulator" alias="fhSearchResponseSortsPopulator" />
+	<bean id="defaultFhSearchResponseSortsPopulator"
+		class="com.fredhopper.connector.query.populators.response.SearchResponseSortsPopulator" >
+		<property name="searchResultSortOptions" ref="searchResultSortOptions"/>
+	</bean>	
+		
+	<alias name="defaultSearchResultSortOptions" alias="searchResultSortOptions"/>
+	<util:list id="defaultSearchResultSortOptions" value-type="java.lang.String">
+		<value>ean_asc</value>
+		<value>ean_desc</value>
+		<value>name_asc</value>
+		<value>name_desc</value>
+		<value>rating_asc</value>
+		<value>rating_desc</value>
+	</util:list>
+		
+	<alias name="defaultFhSearchResponseCategoryCodePopulator" alias="fhSearchResponseCategoryCodePopulator" />
+	<bean id="defaultFhSearchResponseCategoryCodePopulator"
+		class="com.fredhopper.connector.query.populators.response.SearchResponseCategoryCodePopulator" />
+		
+	<alias name="defaultFhSearchResponseSpellingSuggestionPopulator" alias="fhSearchResponseSpellingSuggestionPopulator" />
+	<bean id="defaultFhSearchResponseSpellingSuggestionPopulator"
+		class="com.fredhopper.connector.query.populators.response.SearchResponseSpellingSuggestionPopulator" />	
+
+
+	<!-- Query  Encoder/Decoder -->
+	
+	<alias name="defaultFhSearchQueryEncoderPopulator" alias="solrSearchQueryEncoderPopulator"/>
+	<bean id="defaultFhSearchQueryEncoderPopulator"
+			class="com.fredhopper.connector.query.populators.SearchQueryEncoderPopulator"
+		/>
+
+	<alias name="defaultFhSearchQueryDecoderPopulator" alias="fhSearchQueryDecoderPopulator"/>
+	<bean id="defaultFhSearchQueryDecoderPopulator"
+			class="com.fredhopper.connector.query.populators.SearchQueryDecoderPopulator"
+			/>
+
+	<alias name="defaultFhSearchQueryDecoder" alias="solrSearchQueryDecoder"/>
+	<bean id="defaultFhSearchQueryDecoder" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+					 value="com.fredhopper.connector.query.data.FhSearchQueryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="fhSearchQueryDecoderPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+</beans>

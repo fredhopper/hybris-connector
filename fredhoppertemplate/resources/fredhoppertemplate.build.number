@@ -1,0 +1,9 @@
+#Ant properties
+#Sun Jul 10 14:15:58 CEST 2016
+builddate=20160710 1414
+description=fredhoppertemplate
+name=fredhoppertemplate
+releasedate=20160407 1737
+vendor=hybris
+version=6.0.0.3
+version.api=6.0.0
