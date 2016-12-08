@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.fredhopper.core.connector.index.generate.data.FhAttributeBaseType;
 import com.fredhopper.core.connector.index.generate.data.FhAttributeData;
@@ -32,7 +34,8 @@ import com.google.common.collect.Table;
 
 
 /**
- *
+ * Abstract implementation for {@link AttributeProvider} containing default logic for collecting localized values for
+ * various attribute types.
  */
 public abstract class AbstractAttributeProvider implements AttributeProvider
 {
@@ -115,6 +118,7 @@ public abstract class AbstractAttributeProvider implements AttributeProvider
 		return sanitizeIdStrategy;
 	}
 
+	@Required
 	public void setSanitizeIdStrategy(final SanitizeIdStrategy sanitizeIdStrategy)
 	{
 		this.sanitizeIdStrategy = sanitizeIdStrategy;

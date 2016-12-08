@@ -15,9 +15,6 @@
  *******************************************************************************/
 package com.fredhopper.core.connector.index.generate.validator;
 
-/**
- *
- */
 public class SanitizeIdStrategy
 {
 	private String replacement;
@@ -70,8 +67,9 @@ public class SanitizeIdStrategy
 				return "eight";
 			case 9:
 				return "nine";
+			default:
+				return null;
 		}
-		return null;
 	}
 
 	public String getReplacement()

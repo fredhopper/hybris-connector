@@ -23,15 +23,13 @@ import java.util.Collection;
 import java.util.List;
 
 
+/**
+ * Strategy to filter out classification categories and categories which aren't members of root trees
+ */
 @FunctionalInterface
 public interface CategoryFilterStrategy
 {
 
-	/**
-	 * Filter out classification categories and categories which aren't members of root tree
-	 *
-	 * @return list of categoryModels without classificationClassModels
-	 */
 	public List<CategoryModel> filterCategories(final Collection<CategoryModel> categories, final Collection<CategoryModel> roots);
 
 }

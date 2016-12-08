@@ -29,7 +29,7 @@ import com.fredhopper.model.export.cron.FredhopperIndexExportCronJobModel;
 
 
 /**
- *
+ * Job responsible for gathering, converting and exporting data to a Fredhopper instance
  */
 public class FredhopperIndexExportJob extends AbstractJobPerformable<FredhopperIndexExportCronJobModel>
 {
@@ -45,9 +45,9 @@ public class FredhopperIndexExportJob extends AbstractJobPerformable<FredhopperI
 		{
 			fhIndexer.index(indexCode, cronJob.isUpload());
 		}
-		catch (final IOException e)
+		catch (final IOException ex)
 		{
-			LOG.error("IOException caught while executing index with code \"" + indexCode + "\"", e);
+			LOG.error("IOException caught while executing index with code \"" + indexCode + "\"", ex);
 			return new PerformResult(CronJobResult.ERROR, CronJobStatus.ABORTED);
 		}
 		return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);

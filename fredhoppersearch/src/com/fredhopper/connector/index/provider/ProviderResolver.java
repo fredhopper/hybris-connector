@@ -22,7 +22,7 @@ import com.fredhopper.connector.config.data.MetaAttributeData;
 
 
 /**
- *
+ * Strategy to collect every {@link AttributeProvider} assigned to the supplied {@link IndexConfig}
  */
 public interface ProviderResolver
 {

@@ -237,7 +237,7 @@
 		<property name="sanitizeIdStrategy" ref = "sanitizeIdStrategy"/>
 	</bean>
 	
-	<bean id="fhCategorySource" class="com.fredhopper.connector.index.provider.FHCategorySource">
+	<bean id="fhCategorySource" class="com.fredhopper.connector.index.provider.FhCategorySource">
 		<property name="categoriesQualifier" value="supercategories" />
 		<property name="modelService" ref="modelService" />
 		<property name="categoryService" ref="categoryService" />

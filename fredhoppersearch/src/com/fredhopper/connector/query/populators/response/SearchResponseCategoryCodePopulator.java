@@ -22,6 +22,7 @@ import com.fredhopper.connector.query.data.FhSearchResponse;
 
 
 /**
+ * Category code {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link ProductCategorySearchPageData}
  */
 public class SearchResponseCategoryCodePopulator<STATE, I, CATEGORY>
 		implements Populator<FhSearchResponse, ProductCategorySearchPageData<STATE, I, CATEGORY>>

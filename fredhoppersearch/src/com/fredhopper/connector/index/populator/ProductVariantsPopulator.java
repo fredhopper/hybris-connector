@@ -28,6 +28,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import com.fredhopper.connector.config.data.IndexConfig;
 import com.fredhopper.connector.index.converter.ItemToConvert;
 import com.fredhopper.core.connector.index.generate.data.FhProductData;
@@ -37,7 +39,7 @@ import com.google.common.base.Preconditions;
 
 
 /**
- *
+ * Populator responsible for adding FhVariantData to FhProductData
  */
 public class ProductVariantsPopulator implements Populator<ItemToConvert<ProductModel>, FhProductData>
 {
@@ -90,6 +92,7 @@ public class ProductVariantsPopulator implements Populator<ItemToConvert<Product
 		return variantConverter;
 	}
 
+	@Required
 	public void setVariantConverter(final Converter<ItemToConvert<VariantProductModel>, FhVariantData> variantConverter)
 	{
 		this.variantConverter = variantConverter;
@@ -100,6 +103,7 @@ public class ProductVariantsPopulator implements Populator<ItemToConvert<Product
 		return sanitizeIdStrategy;
 	}
 
+	@Required
 	public void setSanitizeIdStrategy(final SanitizeIdStrategy sanitizeIdStrategy)
 	{
 		this.sanitizeIdStrategy = sanitizeIdStrategy;

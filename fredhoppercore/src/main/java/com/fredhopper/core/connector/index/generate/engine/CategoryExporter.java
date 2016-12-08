@@ -24,9 +24,6 @@ import com.fredhopper.core.connector.index.generate.writer.AbstractCsvWriter;
 import com.fredhopper.core.connector.index.generate.writer.CategoryCsvWriter;
 
 
-/**
- *
- */
 public class CategoryExporter extends ItemExporter<FhCategoryData>
 {
 

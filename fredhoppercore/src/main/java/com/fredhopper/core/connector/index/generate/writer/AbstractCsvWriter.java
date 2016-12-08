@@ -33,11 +33,6 @@ public abstract class AbstractCsvWriter<S>
 	public static final String CHARACTER_ENCODING = "UTF-8";
 	public static final String EMPTY_VALUE = "";
 
-	/**
-	 * @param parentDir
-	 * @param filename
-	 * @throws IOException
-	 */
 	public AbstractCsvWriter(final File parentDir, final String filename, final List<String> columns) throws IOException
 	{
 		final String fullFileName = parentDir.getAbsolutePath() + File.separator + filename;

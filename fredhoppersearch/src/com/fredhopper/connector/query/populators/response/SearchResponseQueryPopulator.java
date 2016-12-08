@@ -24,8 +24,7 @@ import com.fredhopper.connector.query.data.FhSearchResponse;
 
 
 /**
- *
- *
+ * Query {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link FacetSearchPageData}
  */
 public class SearchResponseQueryPopulator<I> extends AbstractSearchResponsePopulator
 		implements Populator<FhSearchResponse, FacetSearchPageData<FhSearchQueryData, I>>

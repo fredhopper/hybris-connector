@@ -29,7 +29,7 @@ import com.fredhopper.connector.index.dao.impl.FindProductCatalogVersionStrategy
 
 
 /**
- *
+ * Default implementation of {@link CategoryFilterStrategy}
  */
 public class DefaultCategoryFilterStrategy implements CategoryFilterStrategy
 {

@@ -24,9 +24,6 @@ import com.fredhopper.core.connector.index.generate.writer.AbstractCsvWriter;
 import com.fredhopper.core.connector.index.generate.writer.MetaAttributeCsvWriter;
 
 
-/**
- *
- */
 public class MetaAttributeExporter extends ItemExporter<FhMetaAttributeData>
 {
 

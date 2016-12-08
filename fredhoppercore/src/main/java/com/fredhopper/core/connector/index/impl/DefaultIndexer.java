@@ -67,20 +67,20 @@ public class DefaultIndexer implements Indexer
 	}
 
 	@Override
-	public void index(final String indexConfig, final boolean upload, final int maxNumberViolatios) throws IOException
+	public void index(final String indexConfig, final boolean upload, final int maxNumberViolations) throws IOException
 	{
 
 		final MetaAttributeCollector metaAttributes = getCollectorFactory().getMetaAttributeCollector(indexConfig);
 		final CategoryDataCollector categories = getCollectorFactory().getCategoryCollector(indexConfig);
 		final ProductDataCollector products = getCollectorFactory().getProductCollector(indexConfig);
-		final InstanceConfig instanceConfig = getInstanceConfigService().getInstageConfig(indexConfig + "InstanceConfig");
+		final InstanceConfig instanceConfig = getInstanceConfigService().getConfig(indexConfig + "InstanceConfig");
 
 		final File parentDir = createFileDirectory(getDataDirectoryResource());
 		final IndexingContext context = new IndexingContext(new Statistics(), parentDir);
 		final File datazip = getGenerator().generate(metaAttributes, categories, products, context);
 		context.setDataZip(Optional.of(datazip));
 		executeHooks(context, prePublishingHooks);
-		if (canUpload(maxNumberViolatios, context))
+		if (canUpload(maxNumberViolations, context))
 		{
 			if (upload)
 			{
@@ -113,9 +113,9 @@ public class DefaultIndexer implements Indexer
 		}
 	}
 
-	protected boolean canUpload(final int maxNumberViolatios, final IndexingContext context)
+	protected boolean canUpload(final int maxNumberViolations, final IndexingContext context)
 	{
-		return (maxNumberViolatios == -1 || context.getStatistics().getViolations().size() < maxNumberViolatios);
+		return maxNumberViolations == -1 || context.getStatistics().getViolations().size() < maxNumberViolations;
 	}
 
 	private File createFileDirectory(final Resource dataDirectoryResource) throws IOException

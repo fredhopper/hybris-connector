@@ -37,6 +37,9 @@ import com.fredhopper.webservice.client.Results;
 import com.fredhopper.webservice.client.Universe;
 
 
+/**
+ * {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link FacetSearchPageData}
+ */
 public class SearchResponseFacetsPopulator<I> extends AbstractSearchResponsePopulator
 		implements Populator<FhSearchResponse, FacetSearchPageData<FhSearchQueryData, I>>
 {
@@ -48,9 +51,8 @@ public class SearchResponseFacetsPopulator<I> extends AbstractSearchResponsePopu
 		final Optional<Universe> universe = getUniverse(source);
 		if (universe.isPresent() && CollectionUtils.isNotEmpty(universe.get().getFacetmap()))
 		{
-			Results results = universe.get().getItemsSection().getResults();
-			final int totalNumberResults = results != null
-					? results.getTotalItems() : 1;
+			final Results results = universe.get().getItemsSection().getResults();
+			final int totalNumberResults = results != null ? results.getTotalItems() : 1;
 			final List<Facetmap> facetMap = universe.get().getFacetmap();
 			final List<FacetData<FhSearchQueryData>> facets = new ArrayList<>();
 			for (final Facetmap facet : facetMap)

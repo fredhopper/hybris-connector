@@ -24,6 +24,9 @@ import java.util.Locale;
 import java.util.Set;
 
 
+/**
+ * Parameter object containing index configuration properties
+ */
 public class IndexConfig implements java.io.Serializable
 {
 

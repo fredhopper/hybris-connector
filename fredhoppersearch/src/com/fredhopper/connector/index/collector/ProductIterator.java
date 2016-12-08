@@ -34,7 +34,7 @@ import com.fredhopper.core.connector.index.generate.data.FhProductData;
 
 
 /**
- *
+ * This class collects Products and converts them into FhProductData DTOs.
  */
 public class ProductIterator implements Iterator<FhProductData>
 {

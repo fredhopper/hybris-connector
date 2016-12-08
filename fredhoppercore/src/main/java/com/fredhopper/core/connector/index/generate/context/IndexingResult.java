@@ -15,9 +15,6 @@
  *******************************************************************************/
 package com.fredhopper.core.connector.index.generate.context;
 
-/**
- *
- */
 public enum IndexingResult
 {
 	VALIDATION_FAILURE, NOT_PUBLISHED, PUBLISHED

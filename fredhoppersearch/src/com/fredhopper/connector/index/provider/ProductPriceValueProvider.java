@@ -36,7 +36,7 @@ import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Default {@link AttributeProvider} implementation for {@link PriceInformation} for {@link ProductModel}
  */
 public class ProductPriceValueProvider implements AttributeProvider
 {

@@ -19,6 +19,7 @@ import java.io.File;
 import java.net.URI;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.core.connector.config.InstanceConfig;
 import com.fredhopper.core.connector.index.generate.exception.ResponseStatusException;
@@ -36,21 +37,20 @@ public class DefaultPublishingService implements PublishingService
 	@Override
 	public boolean publishZip(final InstanceConfig config, final File file)
 	{
-
 		try
 		{
 			LOG.info("Uploading zip file to Fredhopper");
-			final String data_id = publishingStrategy.uploadDataSet(config, file);
-			LOG.info("Triggering an index update '" + data_id + "'");
-			final URI trigger_url = publishingStrategy.triggerDataLoad(config, data_id);
+			final String dataId = publishingStrategy.uploadDataSet(config, file);
+			LOG.info("Triggering an index update '" + dataId + "'");
+			final URI triggerUrl = publishingStrategy.triggerDataLoad(config, dataId);
 			LOG.info("Checking index update status...");
-			String status = publishingStrategy.checkStatus(config, trigger_url);
+			String status = publishingStrategy.checkStatus(config, triggerUrl);
 			while (!status.contains("SUCCESS") && !status.contains("FAILURE"))
 			{
 				try
 				{
 					Thread.sleep(20000);
-					status = publishingStrategy.checkStatus(config, trigger_url);
+					status = publishingStrategy.checkStatus(config, triggerUrl);
 				}
 				catch (final InterruptedException ex)
 				{
@@ -80,6 +80,7 @@ public class DefaultPublishingService implements PublishingService
 		return publishingStrategy;
 	}
 
+	@Required
 	public void setPublishingStrategy(final PublishingStrategy publishingStrategy)
 	{
 		this.publishingStrategy = publishingStrategy;

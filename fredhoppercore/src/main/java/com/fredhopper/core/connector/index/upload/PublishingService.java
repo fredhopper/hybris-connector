@@ -21,6 +21,7 @@ import java.io.IOException;
 import com.fredhopper.core.connector.config.InstanceConfig;
 
 
+@FunctionalInterface
 public interface PublishingService
 {
 

@@ -25,7 +25,7 @@ import com.fredhopper.core.connector.index.generate.data.FhMetaAttributeData;
 
 
 /**
- *
+ * Default implementation of {@link MetaAttributeCollector}
  */
 public class DefaultMetaAttributeCollector extends AbstractConfigurableCollector implements MetaAttributeCollector
 {

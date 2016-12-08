@@ -17,6 +17,10 @@ package com.fredhopper.connector.config;
 
 import com.fredhopper.connector.config.data.IndexConfig;
 
+
+/**
+ * Service is responsible for gathering index configuration properties
+ */
 @FunctionalInterface
 public interface IndexConfigService
 {

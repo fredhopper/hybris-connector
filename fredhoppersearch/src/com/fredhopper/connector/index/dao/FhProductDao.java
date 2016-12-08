@@ -20,6 +20,9 @@ import de.hybris.platform.core.model.product.ProductModel;
 import java.util.List;
 
 
+/**
+ * Data access object responsible for retrieving Product data
+ */
 @FunctionalInterface
 public interface FhProductDao
 {

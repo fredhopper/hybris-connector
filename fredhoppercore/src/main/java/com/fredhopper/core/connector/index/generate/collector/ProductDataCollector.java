@@ -18,9 +18,6 @@ package com.fredhopper.core.connector.index.generate.collector;
 import com.fredhopper.core.connector.index.generate.data.FhProductData;
 
 
-/**
- *
- */
 public interface ProductDataCollector extends Iterable<FhProductData>
 {
 	//empty

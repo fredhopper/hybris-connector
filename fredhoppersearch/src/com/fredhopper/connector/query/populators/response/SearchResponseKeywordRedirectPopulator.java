@@ -25,7 +25,7 @@ import com.fredhopper.connector.query.data.FhSearchResponse;
 
 
 /**
- * Populator for keyword redirects retrieved from Fredhopper
+ * KeywordRedirectUrl {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link ProductSearchPageData}
  */
 public class SearchResponseKeywordRedirectPopulator<I>
 		implements Populator<FhSearchResponse, ProductSearchPageData<FhSearchQueryData, I>>

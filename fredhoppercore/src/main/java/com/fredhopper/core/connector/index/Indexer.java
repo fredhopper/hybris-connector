@@ -21,7 +21,7 @@ import java.io.IOException;
 public interface Indexer
 {
 	/**
-	 * Generate and send data to Fredhopper. Violations will not stops the upload.
+	 * Generate and send data to Fredhopper. Violations will not stop the upload.
 	 *
 	 * @param indexConfig
 	 *           Configuration
@@ -29,7 +29,7 @@ public interface Indexer
 	public void index(final String indexConfig) throws IOException;
 
 	/**
-	 * Generate and send data to Fredhopper. Violations will not stops the upload.
+	 * Generate and send data to Fredhopper. Violations will not stop the upload.
 	 *
 	 * @param indexConfig
 	 *           Configuration
@@ -39,15 +39,15 @@ public interface Indexer
 	public void index(final String indexConfig, final boolean upload) throws IOException;
 
 	/**
-	 * Generate and send data to Fredhopper. Violations will not stops the upload.
+	 * Generate and send data to Fredhopper. Violations will not stop the upload.
 	 *
 	 * @param indexConfig
 	 *           Configuration
 	 * @param upload
 	 *           if true, uploads the generated data to Fredhopper for indexing.
 	 * @param maxNumberViolatios
-	 *           if -1 the upload is always executed, otherwise the upload is not be executed if during the file
-	 *           generation number of Violations exceeds the max amount allowed.
+	 *           if -1 the upload is always executed, otherwise the upload is not be executed if the number of Violations
+	 *           exceeds the max amount allowed.
 	 */
 	public void index(final String indexConfig, final boolean upload, final int maxNumberViolatios) throws IOException;
 }

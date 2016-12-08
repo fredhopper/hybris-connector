@@ -21,12 +21,14 @@ import de.hybris.platform.commerceservices.search.solrfacetsearch.data.SearchQue
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import com.fredhopper.connector.query.data.FhSearchQueryData;
 import com.fredhopper.lang.query.Query;
 
 
 /**
- *
+ * Pagination {@link Populator} from a Hybris {@link SearchQueryPageableData} to a Fredhopper {@link Query}
  */
 public class SearchPagePopulator implements Populator<SearchQueryPageableData<FhSearchQueryData>, Query>
 {
@@ -49,6 +51,7 @@ public class SearchPagePopulator implements Populator<SearchQueryPageableData<Fh
 		return siteConfigService;
 	}
 
+	@Required
 	public void setSiteConfigService(final SiteConfigService siteConfigService)
 	{
 		this.siteConfigService = siteConfigService;

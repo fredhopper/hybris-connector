@@ -29,9 +29,6 @@ import com.fredhopper.core.connector.index.generate.writer.VariantCsvWriter;
 import com.fredhopper.core.connector.index.report.Violation;
 
 
-/**
- *
- */
 public class VariantExporter extends ItemExporter<FhVariantData>
 {
 	private AttributeExporter attributeExporter;
@@ -41,12 +38,9 @@ public class VariantExporter extends ItemExporter<FhVariantData>
 			final IndexingContext context) throws IOException
 	{
 		final List<Violation> violations = super.exportItem(writer, item, context);
-		if (violations.isEmpty())
+		if (violations.isEmpty() && CollectionUtils.isNotEmpty(item.getAttributes()))
 		{
-			if (CollectionUtils.isNotEmpty(item.getAttributes()))
-			{
-				attributeExporter.process(item.getAttributes(), context);
-			}
+			attributeExporter.process(item.getAttributes(), context);
 		}
 		return violations;
 	}

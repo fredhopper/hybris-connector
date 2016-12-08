@@ -24,6 +24,7 @@ import com.fredhopper.connector.query.data.FhSearchResponse;
 
 
 /**
+ * FreeTextSearch {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link ProductSearchPageData}
  */
 public class SearchResponseFreeTextSearchPopulator<I>
 		implements Populator<FhSearchResponse, ProductSearchPageData<FhSearchQueryData, I>>

@@ -20,6 +20,9 @@ import de.hybris.platform.category.model.CategoryModel;
 import java.util.Optional;
 
 
+/**
+ * Strategy to identify the first super-category which is not a classification class
+ */
 @FunctionalInterface
 public interface ParentCategoryResolver
 {

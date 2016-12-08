@@ -35,6 +35,9 @@ import com.fredhopper.webservice.client.Searchterms;
 import com.fredhopper.webservice.client.Universe;
 
 
+/**
+ * {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link DocumentData}
+ */
 public class SearchResponseResultsPopulator<I> extends AbstractSearchResponsePopulator
 		implements Populator<FhSearchResponse, FacetSearchPageData<FhSearchQueryData, I>>
 {

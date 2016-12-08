@@ -19,16 +19,13 @@ import com.fredhopper.connector.config.data.IndexConfig;
 
 
 /**
- *
+ * Parameter object containing conversion input parameters
  */
 public class ItemToConvert<I>
 {
 	private final I item;
 	private final IndexConfig indexConfig;
 
-	/**
-	 *
-	 */
 	public ItemToConvert(final I item, final IndexConfig indexConfig)
 	{
 		super();
@@ -45,11 +42,5 @@ public class ItemToConvert<I>
 	{
 		return indexConfig;
 	}
-
-
-
-
-
-
 
 }

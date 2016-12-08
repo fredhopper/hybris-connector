@@ -15,7 +15,8 @@
  *******************************************************************************/
 package com.fredhopper.core.connector.config;
 
+@FunctionalInterface
 public interface InstanceConfigService
 {
-	public InstanceConfig getInstageConfig(final String indexConfig);
+	public InstanceConfig getConfig(final String indexConfig);
 }

@@ -24,9 +24,6 @@ import com.fredhopper.core.connector.index.generate.writer.AbstractCsvWriter;
 import com.fredhopper.core.connector.index.generate.writer.AttributeCsvWriter;
 
 
-/**
- *
- */
 public class AttributeExporter extends ItemExporter<FhAttributeData>
 {
 	@Override

@@ -24,6 +24,10 @@ import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.fredhopper.core.connector.index.generate.data.FhAttributeData;
 
 
+/**
+ * Collects and converts a given product's attribute values to FhAttributeData based on the supplied meta-attribute
+ * definition
+ */
 @FunctionalInterface
 public interface AttributeProvider
 {

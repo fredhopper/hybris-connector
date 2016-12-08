@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import com.fredhopper.connector.index.converter.ItemToConvert;
 import com.fredhopper.core.connector.index.generate.data.FhCategoryData;
 import com.fredhopper.core.connector.index.generate.validator.SanitizeIdStrategy;
@@ -31,7 +33,7 @@ import com.google.common.base.Preconditions;
 
 
 /**
- *
+ * Populator responsible for converting categories to FhCategoryData
  */
 public class CategoryPopulator implements Populator<ItemToConvert<CategoryModel>, FhCategoryData>
 {
@@ -70,6 +72,7 @@ public class CategoryPopulator implements Populator<ItemToConvert<CategoryModel>
 		return parentCategoryResolver;
 	}
 
+	@Required
 	public void setParentCategoryResolver(final ParentCategoryResolver parentCategoryResolver)
 	{
 		this.parentCategoryResolver = parentCategoryResolver;
@@ -80,6 +83,7 @@ public class CategoryPopulator implements Populator<ItemToConvert<CategoryModel>
 		return sanitizeIdStrategy;
 	}
 
+	@Required
 	public void setSanitizeIdStrategy(final SanitizeIdStrategy sanitizeIdStrategy)
 	{
 		this.sanitizeIdStrategy = sanitizeIdStrategy;

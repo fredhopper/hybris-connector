@@ -22,7 +22,7 @@ import java.util.Optional;
 
 
 /**
- * It returns the first supercategory which is not a Classification Class
+ * Default implementation of {@link ParentCategoryResolver}
  */
 public class DefaultParentCategoryResolver implements ParentCategoryResolver
 {

@@ -28,8 +28,7 @@ import com.fredhopper.core.connector.index.generate.data.FhProductData;
 
 
 /**
- * This class supplies an Iterable that contains FhProductData data collected.
- *
+ * Default implementation of {@link ProductDataCollector}
  */
 public class DefaultProductDataCollector extends AbstractConfigurableCollector implements ProductDataCollector
 {

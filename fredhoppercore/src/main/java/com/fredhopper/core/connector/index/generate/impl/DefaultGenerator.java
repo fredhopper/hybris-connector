@@ -16,7 +16,6 @@
 package com.fredhopper.core.connector.index.generate.impl;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipOutputStream;
@@ -61,7 +60,7 @@ public class DefaultGenerator implements Generator
 
 	}
 
-	private File createDataZip(final File parentDir, final File[] files) throws FileNotFoundException, IOException
+	private File createDataZip(final File parentDir, final File[] files) throws IOException
 	{
 		final File result = new File(parentDir.getAbsolutePath() + File.separator + "data.zip");
 		final FileOutputStream fos = new FileOutputStream(result);

@@ -26,7 +26,7 @@ import com.fredhopper.core.connector.index.generate.collector.ProductDataCollect
 
 
 /**
- *
+ * Factory class for Collectors
  */
 public class ConfigurableCollectorFactory implements CollectorFactory, ApplicationContextAware
 {

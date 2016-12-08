@@ -77,7 +77,7 @@ public class FloatAttributeValidator extends AbstractAttributeValidator
 		try
 		{
 			if (StringUtils.isBlank(value)
-					|| !(Float.valueOf(value).floatValue() > 0 && Double.valueOf(value).floatValue() < Float.MAX_VALUE))
+					|| !(Float.parseFloat(value) > 0 && Double.valueOf(Float.MAX_VALUE).compareTo(Double.valueOf(value)) > 0))
 			{
 				rejectValue(attribute, violations, "The \"float\" attribute value is not in the supported value range.");
 			}

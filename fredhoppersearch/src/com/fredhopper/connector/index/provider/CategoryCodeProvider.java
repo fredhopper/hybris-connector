@@ -33,11 +33,11 @@ import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Default {@link AttributeProvider} implementation for {@link CategoryModel}.code
  */
 public class CategoryCodeProvider extends AbstractAttributeProvider
 {
-	private FHCategorySource categorySource;
+	private FhCategorySource categorySource;
 	private I18NService i18nService;
 	private ModelService modelService;
 	private SessionService sessionService;
@@ -87,12 +87,12 @@ public class CategoryCodeProvider extends AbstractAttributeProvider
 		return modelService.getAttributeValue(model, propertyName);
 	}
 
-	public FHCategorySource getCategorySource()
+	public FhCategorySource getCategorySource()
 	{
 		return categorySource;
 	}
 
-	public void setCategorySource(final FHCategorySource categorySource)
+	public void setCategorySource(final FhCategorySource categorySource)
 	{
 		this.categorySource = categorySource;
 	}

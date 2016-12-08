@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.collections4.MapUtils;
@@ -43,11 +44,11 @@ public class ProductCsvWriter extends AbstractCsvWriter<FhProductData>
 		Preconditions.checkArgument(!MapUtils.isEmpty(source.getCategories()));
 
 		final Map<Locale, Set<String>> categories = source.getCategories();
-		//FIXME What is this retrieval of locales from the KeySet of the categories?
-		for (final Locale locale : categories.keySet())
+
+		for (final Entry<Locale, Set<String>> entry : categories.entrySet())
 		{
-			final Set<String> categoriesSet = source.getCategories().get(locale);
-			printLine(source.getProductId(), locale.toString(), buildCategoriesString(categoriesSet));
+			final Set<String> categoriesSet = source.getCategories().get(entry.getKey());
+			printLine(source.getProductId(), entry.getKey().toString(), buildCategoriesString(categoriesSet));
 		}
 	}
 

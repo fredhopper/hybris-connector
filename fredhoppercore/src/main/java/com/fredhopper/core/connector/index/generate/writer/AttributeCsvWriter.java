@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 import com.fredhopper.core.connector.index.generate.data.FhAttributeData;
@@ -30,13 +31,13 @@ import com.google.common.collect.Table;
 public class AttributeCsvWriter extends AbstractCsvWriter<FhAttributeData>
 {
 
+	private static final Optional<String> NO_VALUEID = Optional.empty();
+	private static final Optional<Locale> NO_LOCALE = Optional.empty();
+
 	public AttributeCsvWriter(final File parentDir, final String filename, final List<String> columns) throws IOException
 	{
 		super(parentDir, filename, columns);
 	}
-
-	private static final Optional<String> NO_VALUEID = Optional.empty();
-	private static final Optional<Locale> NO_LOCALE = Optional.empty();
 
 	@Override
 	public void print(final FhAttributeData source) throws IOException
@@ -71,9 +72,10 @@ public class AttributeCsvWriter extends AbstractCsvWriter<FhAttributeData>
 	{
 
 		final Map<Optional<Locale>, String> valueMap = source.getValues().row(NO_VALUEID);
-		for (final Optional<Locale> locale : valueMap.keySet())
+		for (final Entry<Optional<Locale>, String> entry : valueMap.entrySet())
 		{
-			printLine(source.getItemId(), locale.get().toString(), source.getAttributeId(), EMPTY_VALUE, valueMap.get(locale));
+			printLine(source.getItemId(), entry.getKey().get().toString(), source.getAttributeId(), EMPTY_VALUE,
+					valueMap.get(entry.getKey()));
 		}
 	}
 
@@ -85,10 +87,10 @@ public class AttributeCsvWriter extends AbstractCsvWriter<FhAttributeData>
 		{
 			final String attributeValueId = valueId.isPresent() ? valueId.get() : EMPTY_VALUE;
 			final Map<Optional<Locale>, String> valueMap = values.row(valueId);
-			for (final Optional<Locale> locale : valueMap.keySet())
+			for (final Entry<Optional<Locale>, String> entry : valueMap.entrySet())
 			{
-				printLine(source.getItemId(), locale.get().toString(), source.getAttributeId(), attributeValueId,
-						valueMap.get(locale));
+				printLine(source.getItemId(), entry.getKey().get().toString(), source.getAttributeId(), attributeValueId,
+						valueMap.get(entry.getKey()));
 			}
 		}
 	}

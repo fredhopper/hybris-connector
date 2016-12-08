@@ -40,9 +40,9 @@ public class InstanceConfigurationServiceTest
 	@Test
 	public void test()
 	{
-		final InstanceConfig config = instanceConfigService.getInstageConfig("defaultInstanceConfig");
+		final InstanceConfig config = instanceConfigService.getConfig("defaultInstanceConfig");
 		Assert.assertNotNull(config);
-		Assert.assertEquals(config, instanceConfigService.getInstageConfig("defaultInstanceConfig"));
+		Assert.assertEquals(config, instanceConfigService.getConfig("defaultInstanceConfig"));
 
 	}
 
@@ -51,7 +51,7 @@ public class InstanceConfigurationServiceTest
 	public void testWrongBean()
 	{
 
-		Assert.assertNull(instanceConfigService.getInstageConfig("wrongId"));
+		Assert.assertNull(instanceConfigService.getConfig("wrongId"));
 	}
 
 }

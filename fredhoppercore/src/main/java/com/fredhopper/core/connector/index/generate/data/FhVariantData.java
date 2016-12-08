@@ -56,7 +56,7 @@ public class FhVariantData extends FhAttributeHolderData
 
 	public void setLocales(final Set<Locale> locales)
 	{
-		this.locales = new HashSet<Locale>(locales);
+		this.locales = new HashSet<>(locales);
 	}
 
 }

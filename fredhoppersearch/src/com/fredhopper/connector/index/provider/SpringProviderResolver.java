@@ -29,7 +29,7 @@ import com.fredhopper.connector.config.data.MetaAttributeData;
 
 
 /**
- *
+ * Spring implementation of {@link ProviderResolver}
  */
 public class SpringProviderResolver implements ProviderResolver, ApplicationContextAware
 {

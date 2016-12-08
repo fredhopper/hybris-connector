@@ -29,9 +29,6 @@ import com.fredhopper.core.connector.index.generate.writer.ProductCsvWriter;
 import com.fredhopper.core.connector.index.report.Violation;
 
 
-/**
- *
- */
 public class ProductExporter extends ItemExporter<FhProductData>
 {
 

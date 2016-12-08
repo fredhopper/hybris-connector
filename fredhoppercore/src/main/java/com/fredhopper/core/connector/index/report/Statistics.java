@@ -38,7 +38,7 @@ public class Statistics
 
 	public Statistics()
 	{
-		this.violations = new ArrayList<Violation>();
+		this.violations = new ArrayList<>();
 		exported = new ConcurrentHashMap<>();
 		exported.put(FhProductData.class.getName(), new LongAdder());
 		exported.put(FhVariantData.class.getName(), new LongAdder());

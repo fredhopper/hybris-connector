@@ -26,13 +26,14 @@ import java.util.Locale;
 import java.util.Optional;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Default {@link AttributeProvider} implementation for {@link StockLevelStatus} for {@link ProductModel}
  */
 public class ProductInStockProvider extends AbstractAttributeProvider
 {
@@ -93,53 +94,33 @@ public class ProductInStockProvider extends AbstractAttributeProvider
 		return getCommerceStockService().getStockLevelStatusForProductAndBaseStore(product, baseStore);
 	}
 
-
-	/**
-	 * @return the commerceStockService
-	 */
-	public CommerceStockService getCommerceStockService()
-	{
-		return commerceStockService;
-	}
-
-	/**
-	 * @param commerceStockService
-	 *           the commerceStockService to set
-	 */
-	public void setCommerceStockService(final CommerceStockService commerceStockService)
-	{
-		this.commerceStockService = commerceStockService;
-	}
-
-	/**
-	 * @return the baseSite
-	 */
 	public String getBaseSite()
 	{
 		return baseSite;
 	}
 
-	/**
-	 * @param baseSite
-	 *           the baseSite to set
-	 */
 	public void setBaseSite(final String baseSite)
 	{
 		this.baseSite = baseSite;
 	}
 
-	/**
-	 * @return the flexibleSearchService
-	 */
+	public CommerceStockService getCommerceStockService()
+	{
+		return commerceStockService;
+	}
+
+	@Required
+	public void setCommerceStockService(final CommerceStockService commerceStockService)
+	{
+		this.commerceStockService = commerceStockService;
+	}
+
 	public FlexibleSearchService getFlexibleSearchService()
 	{
 		return flexibleSearchService;
 	}
 
-	/**
-	 * @param flexibleSearchService
-	 *           the flexibleSearchService to set
-	 */
+	@Required
 	public void setFlexibleSearchService(final FlexibleSearchService flexibleSearchService)
 	{
 		this.flexibleSearchService = flexibleSearchService;

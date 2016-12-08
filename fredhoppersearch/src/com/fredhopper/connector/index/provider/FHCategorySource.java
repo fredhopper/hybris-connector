@@ -33,14 +33,15 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.index.dao.FindCatalogVersionStrategy;
 
 
 /**
- *
+ * Utility class to identify and collect relevant categories to export
  */
-public class FHCategorySource
+public class FhCategorySource
 {
 
 	private static final Logger LOG = Logger.getLogger(CategoryCodeProvider.class);
@@ -54,7 +55,7 @@ public class FHCategorySource
 	private Set<String> rootCategoryCodes;
 
 
-	public Collection<CategoryModel> getCategories()
+	public Collection<CategoryModel> getRootCategories()
 	{
 		final Set<CategoryModel> rootCategories = new HashSet<>();
 		for (final String rootCategoryCode : rootCategoryCodes)
@@ -271,6 +272,7 @@ public class FHCategorySource
 		return categoryService;
 	}
 
+	@Required
 	public void setCategoryService(final CategoryService categoryService)
 	{
 		this.categoryService = categoryService;
@@ -281,6 +283,7 @@ public class FHCategorySource
 		return modelService;
 	}
 
+	@Required
 	public void setModelService(final ModelService modelService)
 	{
 		this.modelService = modelService;
@@ -291,6 +294,7 @@ public class FHCategorySource
 		return findCatalogVersionStrategy;
 	}
 
+	@Required
 	public void setFindCatalogVersionStrategy(final FindCatalogVersionStrategy findCatalogVersionStrategy)
 	{
 		this.findCatalogVersionStrategy = findCatalogVersionStrategy;

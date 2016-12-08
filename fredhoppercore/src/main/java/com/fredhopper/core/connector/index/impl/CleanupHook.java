@@ -19,9 +19,6 @@ import com.fredhopper.core.connector.index.IndexingHook;
 import com.fredhopper.core.connector.index.generate.context.IndexingContext;
 
 
-/**
- *
- */
 public class CleanupHook implements IndexingHook
 {
 

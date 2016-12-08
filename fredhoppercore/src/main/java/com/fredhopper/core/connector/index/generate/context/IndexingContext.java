@@ -21,10 +21,6 @@ import java.util.Optional;
 import com.fredhopper.core.connector.index.report.Statistics;
 
 
-
-/**
- *
- */
 public class IndexingContext
 {
 	private final Statistics statistics;

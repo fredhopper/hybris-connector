@@ -42,7 +42,7 @@ import org.mockito.stubbing.Answer;
 
 import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.fredhopper.connector.index.provider.CategoryCodeProvider;
-import com.fredhopper.connector.index.provider.FHCategorySource;
+import com.fredhopper.connector.index.provider.FhCategorySource;
 import com.fredhopper.core.connector.index.generate.data.FhAttributeBaseType;
 import com.fredhopper.core.connector.index.generate.data.FhAttributeData;
 import com.fredhopper.core.connector.index.generate.validator.SanitizeIdStrategy;
@@ -57,7 +57,7 @@ public class CategoryCodeProviderTest
 
 	private CategoryCodeProvider categoryCodeProvider;
 	protected I18NService i18nService;
-	private FHCategorySource fhCategorySource;
+	private FhCategorySource fhCategorySource;
 	private ModelService modelService;
 	private SanitizeIdStrategy sanitizeIdStrategy;
 	private SessionService sessionService;
@@ -66,7 +66,7 @@ public class CategoryCodeProviderTest
 	public void setUp() throws Exception
 	{
 		categoryCodeProvider = new CategoryCodeProvider();
-		fhCategorySource = mock(FHCategorySource.class);
+		fhCategorySource = mock(FhCategorySource.class);
 		i18nService = mock(I18NService.class);
 		doAnswer(new Answer<Void>()
 		{

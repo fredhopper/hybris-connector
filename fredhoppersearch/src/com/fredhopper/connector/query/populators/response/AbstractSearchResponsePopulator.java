@@ -24,6 +24,8 @@ import com.fredhopper.webservice.client.UniverseType;
 
 
 /**
+ * Abstract class containing utility methods for a {@link Populator} from a {@link FhSearchResponse} to a
+ * {@link FhSearchQueryData}
  */
 public abstract class AbstractSearchResponsePopulator
 {

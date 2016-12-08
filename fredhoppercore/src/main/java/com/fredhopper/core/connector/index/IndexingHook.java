@@ -18,9 +18,7 @@ package com.fredhopper.core.connector.index;
 import com.fredhopper.core.connector.index.generate.context.IndexingContext;
 
 
-/**
- *
- */
+@FunctionalInterface
 public interface IndexingHook
 {
 	public void execute(final IndexingContext contex);

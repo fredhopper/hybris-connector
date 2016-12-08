@@ -17,7 +17,6 @@ package com.fredhopper.core.connector.index;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -28,9 +27,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 public class FileUtils
 {
 
+	private FileUtils()
+	{
+		//Utility classes, which are a collection of static members, are not meant to be instantiated.
+	}
 
-
-	public static void addToZipFile(final File file, final ZipOutputStream zos) throws FileNotFoundException, IOException
+	public static void addToZipFile(final File file, final ZipOutputStream zos) throws IOException
 	{
 
 		final FileInputStream fis = new FileInputStream(file);
@@ -52,7 +54,6 @@ public class FileUtils
 	 * Create a subdirectory of parentDir. The name is a random 15 character alphabetic string
 	 *
 	 * @param parentDir
-	 * @return
 	 * @throws IOException
 	 */
 	public static File createRandomDirectory(final File parentDir) throws IOException

@@ -18,9 +18,6 @@ package com.fredhopper.core.connector.index.generate.collector;
 import com.fredhopper.core.connector.index.generate.data.FhCategoryData;
 
 
-/**
- *
- */
 public interface CategoryDataCollector extends Iterable<FhCategoryData>
 {
 

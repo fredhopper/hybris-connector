@@ -31,6 +31,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
@@ -49,7 +50,7 @@ import com.google.common.io.Files;
 
 
 /**
- *
+ * REST implementation of {@link PublishingStrategy}
  */
 public class RestPublishingStrategy implements PublishingStrategy
 {
@@ -64,7 +65,6 @@ public class RestPublishingStrategy implements PublishingStrategy
 	@Override
 	public String uploadDataSet(final InstanceConfig config, final File file) throws ResponseStatusException
 	{
-
 		Preconditions.checkArgument(config != null);
 		Preconditions.checkArgument(file != null);
 
@@ -95,11 +95,10 @@ public class RestPublishingStrategy implements PublishingStrategy
 	}
 
 	@Override
-	public URI triggerDataLoad(final InstanceConfig config, final String data_id) throws ResponseStatusException
+	public URI triggerDataLoad(final InstanceConfig config, final String dataId) throws ResponseStatusException
 	{
-
 		Preconditions.checkArgument(config != null);
-		Preconditions.checkArgument(StringUtils.isNotBlank(data_id));
+		Preconditions.checkArgument(StringUtils.isNotBlank(dataId));
 
 		final RestTemplate restTemplate = restTemplateProvider.createTemplate(config.getHost(), config.getPort(),
 				config.getUsername(), config.getPassword());
@@ -109,7 +108,7 @@ public class RestPublishingStrategy implements PublishingStrategy
 
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_PLAIN);
-		final HttpEntity<String> httpEntity = new HttpEntity<>(data_id, headers);
+		final HttpEntity<String> httpEntity = new HttpEntity<>(dataId, headers);
 
 		final ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, String.class);
 		final HttpStatus status = response.getStatusCode();
@@ -125,15 +124,14 @@ public class RestPublishingStrategy implements PublishingStrategy
 	}
 
 	@Override
-	public String checkStatus(final InstanceConfig config, final URI trigger_url) throws ResponseStatusException
+	public String checkStatus(final InstanceConfig config, final URI triggerUrl) throws ResponseStatusException
 	{
-
 		Preconditions.checkArgument(config != null);
-		Preconditions.checkArgument(trigger_url != null);
+		Preconditions.checkArgument(triggerUrl != null);
 
 		final RestTemplate restTemplate = restTemplateProvider.createTemplate(config.getHost(), config.getPort(),
 				config.getUsername(), config.getPassword());
-		final URI url = trigger_url.resolve(trigger_url.getPath() + STATUS_PATH);
+		final URI url = triggerUrl.resolve(triggerUrl.getPath() + STATUS_PATH);
 
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_PLAIN);
@@ -154,7 +152,6 @@ public class RestPublishingStrategy implements PublishingStrategy
 
 	protected String createCheckSum(final File file)
 	{
-
 		Preconditions.checkArgument(file != null);
 
 		try
@@ -171,7 +168,6 @@ public class RestPublishingStrategy implements PublishingStrategy
 	protected URI createUri(final String scheme, final String host, final Integer port, final String servername, final String path,
 			final List<NameValuePair> params)
 	{
-
 		Preconditions.checkArgument(StringUtils.isNotBlank(scheme));
 		Preconditions.checkArgument(StringUtils.isNotBlank(host));
 		Preconditions.checkArgument(port != null);
@@ -202,6 +198,7 @@ public class RestPublishingStrategy implements PublishingStrategy
 		return restTemplateProvider;
 	}
 
+	@Required
 	public void setRestTemplateProvider(final RestTemplateProvider restTemplateProvider)
 	{
 		this.restTemplateProvider = restTemplateProvider;

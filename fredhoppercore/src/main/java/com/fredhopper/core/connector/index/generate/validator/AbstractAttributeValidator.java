@@ -37,18 +37,10 @@ public abstract class AbstractAttributeValidator implements Validator<FhAttribut
 		Preconditions.checkArgument(attribute != null);
 		final List<Violation> violations = new ArrayList<>();
 
-
-		if (supports(attribute))
+		if (supports(attribute) && isValidAttributeId(attribute, violations) && isValidSize(attribute, violations)
+				&& hasValidValueId(attribute, violations))
 		{
-			if (isValidAttributeId(attribute, violations) && isValidSize(attribute, violations))
-			{
-				if (hasValidValueId(attribute, violations))
-				{
-
-					validateValue(attribute, violations);
-				}
-			}
-
+			validateValue(attribute, violations);
 		}
 		return violations;
 
@@ -67,7 +59,8 @@ public abstract class AbstractAttributeValidator implements Validator<FhAttribut
 
 	protected void rejectValue(final FhAttributeData attribute, final List<Violation> violations, final String message)
 	{
-		violations.add(new Violation(FhAttributeData.class.toString(), attribute.getItemId() + "_" + attribute.getAttributeId(), message));
+		violations.add(
+				new Violation(FhAttributeData.class.toString(), attribute.getItemId() + "_" + attribute.getAttributeId(), message));
 	}
 
 	public abstract boolean supports(final FhAttributeData attribute);

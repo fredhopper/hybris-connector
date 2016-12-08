@@ -29,14 +29,13 @@ import com.google.common.base.Preconditions;
 
 
 /**
- *
+ * Factory class for setting up a pre-configured RestTemplate
  */
 public class RestTemplateProvider
 {
 
 	public RestTemplate createTemplate(final String host, final Integer port, final String username, final String password)
 	{
-
 		Preconditions.checkArgument(StringUtils.isNotBlank(host));
 		Preconditions.checkArgument(port != null);
 		Preconditions.checkArgument(StringUtils.isNotBlank(username));

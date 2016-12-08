@@ -18,6 +18,8 @@ package com.fredhopper.connector.query.populators.request;
 import de.hybris.platform.commerceservices.search.solrfacetsearch.data.SearchQueryPageableData;
 import de.hybris.platform.converters.Populator;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import com.fredhopper.connector.query.data.FhSearchQueryData;
 import com.fredhopper.core.connector.index.generate.validator.SanitizeIdStrategy;
 import com.fredhopper.lang.query.Query;
@@ -30,7 +32,7 @@ import com.fredhopper.lang.query.location.criteria.ValueSet.AggregationType;
 
 
 /**
- *
+ * Query {@link Populator} from a Hybris {@link SearchQueryPageableData} to a Fredhopper {@link Query}
  */
 public class SearchQueryPopulator implements Populator<SearchQueryPageableData<FhSearchQueryData>, Query>
 {
@@ -44,7 +46,6 @@ public class SearchQueryPopulator implements Populator<SearchQueryPageableData<F
 		if (searchQueryData.getLocation() != null)
 		{
 			final Query query = new Query(searchQueryData.getLocation());
-			//final Location location = new Location(searchQueryData.getLocation());
 			target.setLocation(query.getLocation());
 		}
 		else if (searchQueryData.getCategoryCode() != null)
@@ -60,8 +61,6 @@ public class SearchQueryPopulator implements Populator<SearchQueryPageableData<F
 			throw new IllegalStateException();
 		}
 	}
-
-
 
 	private void populateCategoryQuery(final String categoryCode, final Query query)
 	{
@@ -83,15 +82,12 @@ public class SearchQueryPopulator implements Populator<SearchQueryPageableData<F
 
 	}
 
-
-
 	public SanitizeIdStrategy getSanitizeIdStrategy()
 	{
 		return sanitizeIdStrategy;
 	}
 
-
-
+	@Required
 	public void setSanitizeIdStrategy(final SanitizeIdStrategy sanitizeIdStrategy)
 	{
 		this.sanitizeIdStrategy = sanitizeIdStrategy;

@@ -28,6 +28,7 @@ import com.fredhopper.webservice.client.Universe;
 
 
 /**
+ * Pagination {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link FacetSearchPageData}
  */
 public class SearchResponsePaginationPopulator<I> extends AbstractSearchResponsePopulator
 		implements Populator<FhSearchResponse, FacetSearchPageData<FhSearchQueryData, I>>

@@ -32,9 +32,9 @@ import com.fredhopper.connector.query.data.FhSearchResponse;
 
 
 /**
+ * {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link SortData}
  */
-public class SearchResponseSortsPopulator<I>
-		implements Populator<FhSearchResponse, FacetSearchPageData<SolrSearchQueryData, I>>
+public class SearchResponseSortsPopulator<I> implements Populator<FhSearchResponse, FacetSearchPageData<SolrSearchQueryData, I>>
 {
 	private List<String> searchResultSortOptions;
 

@@ -19,7 +19,7 @@ import de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearc
 
 
 /**
- *
+ * POJO representing a Fredhopper Search query
  */
 public class FhSearchQueryData extends SolrSearchQueryData
 {

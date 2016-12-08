@@ -15,15 +15,10 @@
  *******************************************************************************/
 package com.fredhopper.core.connector.index.generate.data;
 
-
-
 import java.io.Serializable;
 import java.util.Collection;
 
 
-/**
- *
- */
 public class FhAttributeHolderData implements Serializable
 {
 	private static final long serialVersionUID = 1L;

@@ -26,6 +26,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Required;
+
 import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.fredhopper.connector.index.converter.ItemToConvert;
 import com.fredhopper.connector.index.provider.AttributeProvider;
@@ -35,7 +37,7 @@ import com.fredhopper.core.connector.index.generate.data.FhAttributeHolderData;
 
 
 /**
- *
+ * Populator responsible for identifying and converting product attributes to FhAttributeHolderData
  */
 public class AttributesPopulator<PRODUCT extends ProductModel> implements Populator<ItemToConvert<PRODUCT>, FhAttributeHolderData>
 {
@@ -43,9 +45,6 @@ public class AttributesPopulator<PRODUCT extends ProductModel> implements Popula
 	private ProviderResolver providerResolver;
 	private boolean variant;
 
-	/**
-	 *
-	 */
 	public AttributesPopulator()
 	{
 		super();
@@ -75,6 +74,7 @@ public class AttributesPopulator<PRODUCT extends ProductModel> implements Popula
 		return providerResolver;
 	}
 
+	@Required
 	public void setProviderResolver(final ProviderResolver providerResolver)
 	{
 		this.providerResolver = providerResolver;

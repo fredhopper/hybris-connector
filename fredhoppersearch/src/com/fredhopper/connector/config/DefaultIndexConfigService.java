@@ -35,7 +35,7 @@ import com.fredhopper.model.export.data.MetaAttributeModel;
 
 
 /**
- *
+ * Default implementation of {@link IndexConfigService}
  */
 public class DefaultIndexConfigService implements IndexConfigService
 {

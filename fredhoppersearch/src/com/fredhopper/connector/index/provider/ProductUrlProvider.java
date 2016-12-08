@@ -26,13 +26,14 @@ import java.util.Locale;
 import java.util.Optional;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Default {@link AttributeProvider} implementation for the URL path for {@link ProductModel}
  */
 public class ProductUrlProvider extends AbstractAttributeProvider
 {
@@ -78,6 +79,7 @@ public class ProductUrlProvider extends AbstractAttributeProvider
 		return sessionService;
 	}
 
+	@Required
 	public void setSessionService(final SessionService sessionService)
 	{
 		this.sessionService = sessionService;
@@ -88,6 +90,7 @@ public class ProductUrlProvider extends AbstractAttributeProvider
 		return urlResolver;
 	}
 
+	@Required
 	public void setUrlResolver(final UrlResolver<ProductModel> urlResolver)
 	{
 		this.urlResolver = urlResolver;
@@ -98,6 +101,7 @@ public class ProductUrlProvider extends AbstractAttributeProvider
 		return i18nService;
 	}
 
+	@Required
 	public void setI18nService(final I18NService i18nService)
 	{
 		this.i18nService = i18nService;

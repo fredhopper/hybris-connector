@@ -77,7 +77,7 @@ public class IntAttributeValidator extends AbstractAttributeValidator
 		try
 		{
 			if (StringUtils.isBlank(value)
-					|| !(Integer.valueOf(value).intValue() > 0 && Double.valueOf(value).intValue() < Integer.MAX_VALUE))
+					|| !(Integer.parseInt(value) > 0 && Double.valueOf(Integer.MAX_VALUE).compareTo(Double.valueOf(value)) > 0))
 			{
 				rejectValue(attribute, violations, "The \"int\" attribute value is not in the supported value range.");
 			}

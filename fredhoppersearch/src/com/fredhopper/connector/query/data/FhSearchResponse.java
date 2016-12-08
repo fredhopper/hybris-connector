@@ -19,7 +19,7 @@ import com.fredhopper.webservice.client.Page;
 
 
 /**
- *
+ * POJO representing a Fredhopper Search response
  */
 public class FhSearchResponse
 {

@@ -27,6 +27,7 @@ import java.util.Collections;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.query.data.FhSearchQueryData;
 import com.fredhopper.connector.query.data.FhSearchResponse;
@@ -37,7 +38,7 @@ import com.google.common.base.Preconditions;
 
 
 /**
- * Default implementation of the ProductSearchService
+ * Default implementation of {@link ProductSearchService}
  */
 public class DefaultFhProductSearchService<I>
 		implements ProductSearchService<FhSearchQueryData, I, ProductCategorySearchPageData<FhSearchQueryData, I, CategoryModel>>
@@ -134,6 +135,7 @@ public class DefaultFhProductSearchService<I>
 		return fhQueryService;
 	}
 
+	@Required
 	public void setFhQueryService(final FhQueryService fhQueryService)
 	{
 		this.fhQueryService = fhQueryService;
@@ -144,6 +146,7 @@ public class DefaultFhProductSearchService<I>
 		return searchResponseConverter;
 	}
 
+	@Required
 	public void setSearchResponseConverter(
 			final Converter<FhSearchResponse, ProductCategorySearchPageData<FhSearchQueryData, I, CategoryModel>> searchResponseConverter)
 	{
@@ -155,6 +158,7 @@ public class DefaultFhProductSearchService<I>
 		return searchQueryPageableConverter;
 	}
 
+	@Required
 	public void setSearchQueryPageableConverter(
 			final Converter<SearchQueryPageableData<FhSearchQueryData>, Query> searchQueryPageableConverter)
 	{

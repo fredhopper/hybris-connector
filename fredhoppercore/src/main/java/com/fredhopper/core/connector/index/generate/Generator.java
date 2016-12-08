@@ -24,14 +24,14 @@ import com.fredhopper.core.connector.index.generate.collector.ProductDataCollect
 import com.fredhopper.core.connector.index.generate.context.IndexingContext;
 
 
+/**
+ * Responsible for generating the output files using the Collector parameters
+ *
+ * @return location of the compressed data.zip
+ */
+@FunctionalInterface
 public interface Generator
 {
-
-	/**
-	 * Responsible of generating the files using the Collectors parameters
-	 *
-	 * @return location of the compressed data.zip
-	 */
 	public File generate(final MetaAttributeCollector metaAttributes, final CategoryDataCollector categories,
 			final ProductDataCollector products, final IndexingContext context) throws IOException;
 }

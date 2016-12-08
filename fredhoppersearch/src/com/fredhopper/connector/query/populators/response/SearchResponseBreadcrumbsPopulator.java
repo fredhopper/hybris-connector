@@ -33,6 +33,7 @@ import com.fredhopper.webservice.client.Universe;
 
 
 /**
+ * Breadcrumbs {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link FacetSearchPageData}
  */
 public class SearchResponseBreadcrumbsPopulator<I> extends AbstractSearchResponsePopulator
 		implements Populator<FhSearchResponse, FacetSearchPageData<FhSearchQueryData, I>>

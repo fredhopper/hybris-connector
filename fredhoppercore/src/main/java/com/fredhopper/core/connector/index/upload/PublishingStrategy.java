@@ -26,7 +26,7 @@ public interface PublishingStrategy
 {
 
 	/**
-	 * Upload a new data.zip, and assign it a data id
+	 * Upload a new data.zip, and assign a dataId
 	 *
 	 * @param config
 	 *           DTO containing connection parameters
@@ -38,16 +38,16 @@ public interface PublishingStrategy
 	String uploadDataSet(final InstanceConfig config, final File file) throws ResponseStatusException;
 
 	/**
-	 * Create new data-load trigger, and assign it an id.
-	 * 
+	 * Create new data-load trigger.
+	 *
 	 * @param config
 	 *           DTO containing connection parameters
-	 * @param data_id
+	 * @param dataId
 	 *           the identifier of the uploaded data file
 	 * @return the URI where the triggered job can be monitored
 	 * @throws ResponseStatusException
 	 */
-	URI triggerDataLoad(final InstanceConfig config, final String data_id) throws ResponseStatusException;
+	URI triggerDataLoad(final InstanceConfig config, final String dataId) throws ResponseStatusException;
 
 	/**
 	 * Get the status of a triggered data-load operation.

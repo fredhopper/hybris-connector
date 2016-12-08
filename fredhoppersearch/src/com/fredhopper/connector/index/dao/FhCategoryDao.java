@@ -20,6 +20,9 @@ import de.hybris.platform.category.model.CategoryModel;
 import java.util.Collection;
 
 
+/**
+ * Data access object responsible for retrieving Category data
+ */
 @FunctionalInterface
 public interface FhCategoryDao
 {

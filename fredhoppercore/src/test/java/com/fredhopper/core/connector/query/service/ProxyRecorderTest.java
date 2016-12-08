@@ -15,8 +15,8 @@
  *******************************************************************************/
 package com.fredhopper.core.connector.query.service;
 
+import org.junit.Ignore;
 import org.junit.Rule;
-import org.junit.Test;
 import org.mockserver.client.proxy.ProxyClient;
 import org.mockserver.junit.ProxyRule;
 
@@ -48,7 +48,7 @@ public class ProxyRecorderTest
 		return fasWebserviceFactory.getObject();
 	}
 
-	@Test
+	@Ignore
 	public void testUrl() throws Exception
 	{
 		final ProxyClient proxyClient = new ProxyClient("localhost", 1080);

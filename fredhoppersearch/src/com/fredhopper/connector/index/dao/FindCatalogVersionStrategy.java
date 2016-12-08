@@ -19,6 +19,9 @@ package com.fredhopper.connector.index.dao;
 import de.hybris.platform.catalog.model.CatalogVersionModel;
 
 
+/**
+ * Strategy for retrieving the catalog version
+ */
 @FunctionalInterface
 public interface FindCatalogVersionStrategy
 {

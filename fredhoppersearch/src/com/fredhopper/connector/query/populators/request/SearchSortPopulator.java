@@ -30,7 +30,7 @@ import com.google.common.collect.Iterables;
 
 
 /**
- *
+ * Sorting {@link Populator} from a Hybris {@link SearchQueryPageableData} to a Fredhopper {@link Query}
  */
 public class SearchSortPopulator implements Populator<SearchQueryPageableData<FhSearchQueryData>, Query>
 {

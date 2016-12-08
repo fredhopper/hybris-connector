@@ -28,19 +28,19 @@ import java.util.Set;
 import com.fredhopper.connector.config.data.IndexConfig;
 import com.fredhopper.connector.index.converter.ItemToConvert;
 import com.fredhopper.connector.index.dao.FhCategoryDao;
-import com.fredhopper.connector.index.provider.FHCategorySource;
+import com.fredhopper.connector.index.provider.FhCategorySource;
 import com.fredhopper.core.connector.index.generate.collector.CategoryDataCollector;
 import com.fredhopper.core.connector.index.generate.data.FhCategoryData;
 
 
 
 /**
- *
+ * Default implementation of {@link CategoryDataCollector}
  */
 public class DefaultCategoryDataCollector extends AbstractConfigurableCollector implements CategoryDataCollector
 {
 	private String universe;
-	private FHCategorySource categorySource;
+	private FhCategorySource categorySource;
 	private Converter<ItemToConvert<CategoryModel>, FhCategoryData> converter;
 	private FhCategoryDao fhCategoryDao;
 
@@ -52,10 +52,10 @@ public class DefaultCategoryDataCollector extends AbstractConfigurableCollector 
 
 		categoryData.add(buildTopLevelCategoryData());
 
-		for (final CategoryModel category : getCategorySource().getCategories())
+		for (final CategoryModel rootCategory : getCategorySource().getRootCategories())
 		{
-			final Collection<CategoryModel> categories = fhCategoryDao.getCategories(category);
-			for (final CategoryModel categoryToConvert : categories)
+			final Collection<CategoryModel> subCategory = fhCategoryDao.getCategories(rootCategory);
+			for (final CategoryModel categoryToConvert : subCategory)
 			{
 				categoryData.add(buildCategoryData(categoryToConvert, converter, indexConfig));
 			}
@@ -103,12 +103,12 @@ public class DefaultCategoryDataCollector extends AbstractConfigurableCollector 
 		return fixUniverseParent(converter.convert(source));
 	}
 
-	public FHCategorySource getCategorySource()
+	public FhCategorySource getCategorySource()
 	{
 		return categorySource;
 	}
 
-	public void setCategorySource(final FHCategorySource categorySource)
+	public void setCategorySource(final FhCategorySource categorySource)
 	{
 		this.categorySource = categorySource;
 	}

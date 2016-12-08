@@ -21,6 +21,7 @@ import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.variants.model.VariantProductModel;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.index.converter.ItemToConvert;
 import com.fredhopper.core.connector.index.generate.data.FhVariantData;
@@ -29,7 +30,7 @@ import com.google.common.base.Preconditions;
 
 
 /**
- *
+ * Populator responsible for converting product variants to FhVariantData
  */
 public class VariantEssentialsPopulator implements Populator<ItemToConvert<VariantProductModel>, FhVariantData>
 {
@@ -58,6 +59,7 @@ public class VariantEssentialsPopulator implements Populator<ItemToConvert<Varia
 		return sanitizeIdStrategy;
 	}
 
+	@Required
 	public void setSanitizeIdStrategy(final SanitizeIdStrategy sanitizeIdStrategy)
 	{
 		this.sanitizeIdStrategy = sanitizeIdStrategy;

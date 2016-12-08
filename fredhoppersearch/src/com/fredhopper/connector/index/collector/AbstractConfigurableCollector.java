@@ -21,9 +21,6 @@ import com.fredhopper.connector.config.IndexConfigService;
 import com.fredhopper.connector.config.data.IndexConfig;
 
 
-/**
- *
- */
 public class AbstractConfigurableCollector
 {
 

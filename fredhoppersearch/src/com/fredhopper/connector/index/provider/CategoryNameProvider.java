@@ -15,8 +15,11 @@
  *******************************************************************************/
 package com.fredhopper.connector.index.provider;
 
+import de.hybris.platform.category.model.CategoryModel;
+
+
 /**
- *
+ * Default {@link AttributeProvider} implementation for {@link CategoryModel}.name
  */
 public class CategoryNameProvider extends CategoryCodeProvider
 {

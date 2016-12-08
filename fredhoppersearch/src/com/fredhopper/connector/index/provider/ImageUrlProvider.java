@@ -36,7 +36,7 @@ import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Default {@link AttributeProvider} implementation for the URL path for {@link MediaModel}
  */
 public class ImageUrlProvider extends AbstractAttributeProvider
 {

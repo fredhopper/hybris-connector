@@ -21,6 +21,9 @@ import de.hybris.platform.catalog.model.classification.ClassAttributeAssignmentM
 import com.fredhopper.core.connector.index.generate.data.FhMetaAttributeData;
 
 
+/**
+ * Data transfer object for meta-attribute properties
+ */
 public class MetaAttributeData extends FhMetaAttributeData
 {
 

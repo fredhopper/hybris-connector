@@ -18,13 +18,19 @@ package com.fredhopper.connector.query.converters;
 import de.hybris.platform.commerceservices.i18n.CommerceCommonI18NService;
 import de.hybris.platform.commerceservices.search.solrfacetsearch.data.SearchQueryPageableData;
 import de.hybris.platform.converters.impl.AbstractPopulatingConverter;
+import de.hybris.platform.servicelayer.dto.converter.Converter;
 
 import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.query.data.FhSearchQueryData;
 import com.fredhopper.lang.query.Query;
 
 
+/**
+ * {@link Converter} for {@link SearchQueryPageableData}
+ */
 public class SearchQueryPageableConverter extends AbstractPopulatingConverter<SearchQueryPageableData<FhSearchQueryData>, Query>
 {
 
@@ -38,28 +44,22 @@ public class SearchQueryPageableConverter extends AbstractPopulatingConverter<Se
 		return new Query(universe, locale.toString());
 	}
 
-
-
 	public String getUniverse()
 	{
 		return universe;
 	}
-
 
 	public void setUniverse(final String universe)
 	{
 		this.universe = universe;
 	}
 
-
-
 	public CommerceCommonI18NService getCommerceCommonI18NService()
 	{
 		return commerceCommonI18NService;
 	}
 
-
-
+	@Required
 	public void setCommerceCommonI18NService(final CommerceCommonI18NService commerceCommonI18NService)
 	{
 		this.commerceCommonI18NService = commerceCommonI18NService;

@@ -31,7 +31,7 @@ import com.fredhopper.webservice.client.Universe;
 
 
 /**
- * Populator to provide spelling suggestions
+ * {@link Populator} from a {@link FhSearchResponse} to Hybris' {@link SpellingSuggestionData}
  */
 public class SearchResponseSpellingSuggestionPopulator<I> extends AbstractSearchResponsePopulator
 		implements Populator<FhSearchResponse, ProductSearchPageData<FhSearchQueryData, I>>

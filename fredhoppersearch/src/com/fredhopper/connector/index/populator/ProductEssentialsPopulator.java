@@ -27,24 +27,25 @@ import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.config.data.IndexConfig;
 import com.fredhopper.connector.index.converter.ItemToConvert;
 import com.fredhopper.connector.index.filter.CategoryFilterStrategy;
-import com.fredhopper.connector.index.provider.FHCategorySource;
+import com.fredhopper.connector.index.provider.FhCategorySource;
 import com.fredhopper.core.connector.index.generate.data.FhProductData;
 import com.fredhopper.core.connector.index.generate.validator.SanitizeIdStrategy;
 import com.google.common.base.Preconditions;
 
 
 /**
- *
+ * Populator responsible for converting products to FhProductData
  */
 public class ProductEssentialsPopulator implements Populator<ItemToConvert<ProductModel>, FhProductData>
 {
 
 	private CategoryFilterStrategy categoryFilterStrategy;
-	private FHCategorySource categorySource;
+	private FhCategorySource categorySource;
 	private SanitizeIdStrategy sanitizeIdStrategy;
 
 
@@ -63,7 +64,7 @@ public class ProductEssentialsPopulator implements Populator<ItemToConvert<Produ
 		target.setProductId(getSanitizeIdStrategy().sanitizeId(product.getCode()));
 
 		final Collection<CategoryModel> input = categoryFilterStrategy.filterCategories(product.getSupercategories(),
-				getCategorySource().getCategories());
+				getCategorySource().getRootCategories());
 
 		if (CollectionUtils.isNotEmpty(input))
 		{
@@ -87,17 +88,19 @@ public class ProductEssentialsPopulator implements Populator<ItemToConvert<Produ
 		return categoryFilterStrategy;
 	}
 
+	@Required
 	public void setCategoryFilterStrategy(final CategoryFilterStrategy categoryFilterStrategy)
 	{
 		this.categoryFilterStrategy = categoryFilterStrategy;
 	}
 
-	public FHCategorySource getCategorySource()
+	public FhCategorySource getCategorySource()
 	{
 		return categorySource;
 	}
 
-	public void setCategorySource(final FHCategorySource categorySource)
+	@Required
+	public void setCategorySource(final FhCategorySource categorySource)
 	{
 		this.categorySource = categorySource;
 	}
@@ -107,6 +110,7 @@ public class ProductEssentialsPopulator implements Populator<ItemToConvert<Produ
 		return sanitizeIdStrategy;
 	}
 
+	@Required
 	public void setSanitizeIdStrategy(final SanitizeIdStrategy sanitizeIdStrategy)
 	{
 		this.sanitizeIdStrategy = sanitizeIdStrategy;

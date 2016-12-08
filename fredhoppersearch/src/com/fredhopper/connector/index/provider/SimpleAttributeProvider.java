@@ -34,13 +34,14 @@ import java.util.Optional;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.fredhopper.connector.config.data.MetaAttributeData;
 import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Default implementation of {@link AttributeProvider}
  */
 public class SimpleAttributeProvider extends AbstractAttributeProvider
 {
@@ -133,6 +134,7 @@ public class SimpleAttributeProvider extends AbstractAttributeProvider
 		return modelService;
 	}
 
+	@Required
 	public void setModelService(final ModelService modelService)
 	{
 		this.modelService = modelService;
@@ -143,6 +145,7 @@ public class SimpleAttributeProvider extends AbstractAttributeProvider
 		return sessionService;
 	}
 
+	@Required
 	public void setSessionService(final SessionService sessionService)
 	{
 		this.sessionService = sessionService;
@@ -153,6 +156,7 @@ public class SimpleAttributeProvider extends AbstractAttributeProvider
 		return typeService;
 	}
 
+	@Required
 	public void setTypeService(final TypeService typeService)
 	{
 		this.typeService = typeService;
@@ -163,6 +167,7 @@ public class SimpleAttributeProvider extends AbstractAttributeProvider
 		return variantsService;
 	}
 
+	@Required
 	public void setVariantsService(final VariantsService variantsService)
 	{
 		this.variantsService = variantsService;
@@ -173,6 +178,7 @@ public class SimpleAttributeProvider extends AbstractAttributeProvider
 		return i18nService;
 	}
 
+	@Required
 	public void setI18nService(final I18NService i18nService)
 	{
 		this.i18nService = i18nService;

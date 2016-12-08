@@ -24,6 +24,9 @@ import de.hybris.platform.catalog.model.CatalogVersionModel;
 import com.fredhopper.connector.index.dao.FindCatalogVersionStrategy;
 
 
+/**
+ * Default strategy for retrieving the product catalog version
+ */
 public class FindProductCatalogVersionStrategy implements FindCatalogVersionStrategy
 {
 

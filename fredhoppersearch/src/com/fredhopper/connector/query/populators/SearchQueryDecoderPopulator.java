@@ -29,6 +29,7 @@ import com.fredhopper.lang.query.Query;
 
 
 /**
+ * {@link Populator} from {@link SearchQueryData} to {@link FhSearchQueryData}
  */
 public class SearchQueryDecoderPopulator implements Populator<SearchQueryData, FhSearchQueryData>
 {

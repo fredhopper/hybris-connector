@@ -113,7 +113,7 @@ public class DefaultIndexerTest
 	@Test
 	public void testIndex() throws IOException
 	{
-		final InstanceConfig instageConfig = instanceConfigService.getInstageConfig(DEFAULT_INSTANCE_CONFIG + "InstanceConfig");
+		final InstanceConfig instageConfig = instanceConfigService.getConfig(DEFAULT_INSTANCE_CONFIG + "InstanceConfig");
 		defaultFhIndexer.index("default");
 
 		Mockito.verify(generator).generate(eq(mockMetaAttributeCollector), eq(mockCategoryCollector), eq(mockProductCollector),

@@ -18,6 +18,7 @@ package com.fredhopper.core.connector.query;
 import com.fredhopper.webservice.client.Page;
 
 
+@FunctionalInterface
 public interface FhQueryService
 {
 

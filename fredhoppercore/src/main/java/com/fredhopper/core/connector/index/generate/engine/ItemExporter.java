@@ -31,9 +31,6 @@ import com.fredhopper.core.connector.index.report.Violation;
 import com.google.common.base.Preconditions;
 
 
-/**
- *
- */
 public abstract class ItemExporter<I>
 {
 	private String fileName;

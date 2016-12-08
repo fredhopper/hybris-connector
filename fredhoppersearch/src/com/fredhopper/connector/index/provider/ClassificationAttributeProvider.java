@@ -34,7 +34,7 @@ import com.google.common.collect.HashBasedTable;
 
 
 /**
- *
+ * Prototype {@link AttributeProvider} implementation for {@link ClassAttributeAssignmentModel}
  */
 public class ClassificationAttributeProvider extends AbstractAttributeProvider
 {
