@@ -1,1 +1,3 @@
-# Fredhopper hybris Connector
+# hybris-connector
+
+This repository hosts the Fredhopper Hybris Connector.
