@@ -2,8 +2,8 @@
 
 With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced search, navigation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
 
-* [System Requirements]()
-* [Installing the Plugin]()
+* [System Requirements](#system-requirements)
+* [Installing the Extension](#installing-the-extension)
 * [Configuring the Export Logic]()
 * [Configuring the Query Logic]()
 * [Generating and Publishing Data]()
@@ -15,10 +15,10 @@ With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced se
 * hybris version requirement ???
 * Fredhopper version requirement ???
 
-## Installing the Plugin
+## Installing the Extension
 
 1. Clone the [Fredhopper GitHub repository](https://github.com/fredhopper/hybris-connector.git) to your local machine.
-1. Copy `fredhoppersearch` and `fredhoppertemplate` to the location where you store custom extensions for your hybris platform.<br>Typically: `hybris\bin\custom`
+1. Copy `fredhoppersearch` and `fredhoppertemplate` to the location where you store custom extensions for hybris.<br>Typically: `hybris\bin\custom`
 1. Generate the extension locally.
 	1. On a command prompt, navigate to `hybris\bin\platform`.
 	1. Run `ant extgen` and when prompted, set `fredhoppertemplate` as the template.
@@ -31,7 +31,21 @@ With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced se
   		<extension name="<generated>" />  
 	</extensions>
 	```
-1. Open `config\local.properties` and configure the required properties.<br>For a complete property reference, see [Hybris Connector Wiki: Add and configure related properties](https://github.com/fredhopper/hybris-connector).
+1. Open `config\local.properties` and configure the following properties.
+
+	Property | Description
+	--- | ---
+	`fh.product.catalog.name` | The name of the hybris catalog to use as the source of your data.
+	`fh.product.catalog.version` | The version of the hybris catalog to use.
+	`fh.data.directory` | The file path where index files should be generated before upload.
+	`fh.instance.host` | The fully qualified domain name of the Fredhopper host instance.
+	`fh.instance.port` | The port number to connect to.
+	`fh.instance.servername` | The specific server name of your instance, as used in the path when publishing data.
+	`fh.instance.username` | The username to authenticate with.
+	`fh.instance.password` | The password to authenticate with.
+	`fh.instance.query.url` | The Fredhopper url to query against.
+	`fh.instance.universe` | The Fredhopper universe to use.
+	`fh.query.maxretries` | Number of retries time for a request before giving an error.
 
 ## Configuring the Export Logic
 
