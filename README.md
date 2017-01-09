@@ -49,7 +49,15 @@ With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced se
 
 ## Configuring the Export Logic
 
-
+1. Define your index attributes, using `essentialdata_createExportJobConfig.impex` as an example. For each attribute you need to define:
+	* attributeId
+	* Fredhopper baseType
+	* name (in all languages needed)
+	* value provider
+	* (optional) Implement value providers if you have requirements which are not addressed by the existing providers.
+1. Customize (or override) the DAOs responsible of fetching products and categories (DefaultFhCategoryDao and DefaultFhProductDao).
+1. Run "ant all", update running system and trigger the cronjob "fredhopperIndexExportJob" to generate and publish your index to Fredhopper.
+1. Connect to Fredhopper and verify your data has been correctly published.
 
 ## Configure the Query Logic
 
