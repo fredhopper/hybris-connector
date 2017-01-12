@@ -1,17 +1,28 @@
 # Fredhopper/SAP Hybris Connector
 
-With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced search, navigation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
+*Powerful on-site search, navigation, personalisation and merchandising, tailored to the specific needs of leading retailers*
+
+![](Fredhopper_logo.jpg)
+
+With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced on-site search, navigation, personalisation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
 
 * [System Requirements](#system-requirements)
-* [Install the Extension](#install-the-extension)
-* [Next Steps](#next-steps)
+* [Installation and Configuration](#installation-and configuration)
+	* [Install the Extension](#install-the-extension)
+	* [Configure the Export Logic](#configure-the-export-logic)
+	* [Configure the Query Logic](#configure-the-query-logic)
+* [License](#license)
 
 ## System Requirements
 
 * SAP Hybris 6.x
 * Configured Fredhopper instance<br>The machine on which you are running hybris must be able to reach the Fredhopper instance.
 
-## Install the Extension
+## Installation and Configuration
+
+To be able to use the Fredhopper/SAP Hyris connector, you need to build and install the extension locally and configure the export and query logic.
+
+### Install the Extension
 
 Before you can use the Fredhopper/SAP Hybris connector, you need to build the custom extension locally and add it to hybris.
 
@@ -46,16 +57,9 @@ Before you can use the Fredhopper/SAP Hybris connector, you need to build the cu
 	`fh.query.maxretries` | Number of retries for any request before returning an error.
 1. Rebuild hybris.
 
-## Next Steps
+### Configure the Export Logic
 
-After you have installed the connector, you need to complete the following steps:
-
-1. Configure the export logic.
-1. Configure the query logic.
-1. Generate and publish data.
-1. Configure the front-end.
-
-## Configuring the Export Logic
+After you have installed the connector locally, you need to export your data from hybris and load it into Fredhopper.
 
 1. Define your index attributes, using `essentialdata_createExportJobConfig.impex` as an example. For each attribute, you need to define the following:
 
@@ -66,15 +70,24 @@ After you have installed the connector, you need to complete the following steps
 	`name` | string | The attribute name. You need to specify it for all required languages.
 	`provider` | string | A Spring bean identifier which acts as the value provider for the attribute. 
 	
-	> NOTE: You can implement additional value providers if you have requirements which are not addressed by the existing providers.
-1. Customize or override the DAOs responsible of fetching products and categories (`DefaultFhCategoryDao` and `DefaultFhProductDao`).
-1. Run "ant all", update running system and trigger the cron job "fredhopperIndexExportJob" to generate and publish your index to Fredhopper.
+	> NOTE: You can implement additional value providers if you have requirements that are not addressed by the existing providers.
+1. Customize or override `DefaultFhCategoryDao` and `DefaultFhProductDao`.<br>These data access objects are responsible for fetching categories and products, respectively.
+1. To generate and publish your index to Fredhopper, run `ant all`, update the running system, and trigger the cron job `fredhopperIndexExportJob`.
 1. Connect to Fredhopper and verify your data has been correctly published.
 
-## Configure the Query Logic
+For more information, see [Generating and Publishing Data](https://github.com/fredhopper/hybris-connector/wiki/Generating-and-publishing-data).
 
-## Generating and Publishing Data
+> **TIP:** You can also manage key configuration items from the hybris backoffice. For more information, see [Backoffice Management](https://github.com/fredhopper/hybris-connector/wiki/Back-office-management).
 
-## Front-End Integration
+### Configure the Query Logic
 
-## Backoffice Management
+After you have loaded your data in Fredhopper, you can configure the way hybris queries Fredhoppers.
+
+1. Customize or override the `DocumentSearchResultValuePopulator` class.<br>The class is responsible at service level for populating the `DocumentData.values` attribute.
+1. Run `ant all`, access your front-end, and submit a search request. Your results should be coming from Hybris.
+
+For more information, see [Front-End Integration](https://github.com/fredhopper/hybris-connector/wiki/Front-end-integration).
+
+## License
+
+This software is licensed under the Apache 2.0 license, quoted <a href="LICENSE" target="_blank">here</a>.
