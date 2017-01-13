@@ -4,7 +4,7 @@
 
 ![](Fredhopper_logo.jpg)
 
-With the Fredhopper *Connector for SAP Hybris*, you can leverage the advanced on-site search, navigation, personalisation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
+With the *Fredhopper/SAP Hybris Connector*, you can leverage the advanced on-site search, navigation, personalisation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
 
 * [System Requirements](#system-requirements)
 * [Installation and Configuration](#installation-and configuration)
@@ -26,7 +26,7 @@ To be able to use the Fredhopper/SAP Hyris connector, you need to build and inst
 
 Before you can use the Fredhopper/SAP Hybris connector, you need to build the custom extension locally and add it to hybris.
 
-1. Clone the [Fredhopper GitHub repository](https://github.com/fredhopper/hybris-connector.git) to your local machine.
+1. Clone the [Fredhopper/SAP Hybris Connector repository](https://github.com/fredhopper/hybris-connector.git) to your local machine.
 1. Copy `fredhoppersearch` and `fredhoppertemplate` to the hybris location for user-defined extensions.<br>Typically: `hybris/bin/custom`
 1. Generate the extension locally.
 	1. On a command prompt, navigate to `hybris/bin/platform`.
