@@ -2,7 +2,7 @@
 
 *Help improve the Fredhopper/SAP Hybris Connector*
 
-![](Fredhopper_logo.jpg)
+![](./Fredhopper_logo.jpg)
 
 With the *Fredhopper/SAP Hybris Connector*, you can leverage the advanced on-site search, navigation, personalisation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
 
