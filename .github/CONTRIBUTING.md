@@ -1,6 +1,6 @@
 # Contribute to the Fredhopper/SAP Hybris Connector
 
-*Help improve the Fredhopper/SAP Hybris Connector*
+*Help us improve the Fredhopper/SAP Hybris Connector*
 
 ![](../Fredhopper_logo.jpg)
 
