@@ -45,7 +45,8 @@ If you have implemented a bug fix or developed a new feature yourself, you can s
 1. Fork the [Fredhopper/SAP Hybris Connector repository](https://github.com/fredhopper/hybris-connector) to your account.
 1. Implement your code changes in the fork. 
 1. Make sure to test your work extensively.
+1. Rebase your changes on the latest `master` of the main repository.
 1. Submit a pull request from your fork to the `master` branch of the main repository.<br>Make sure that all commit messages and the pull request body are as descriptive as possible.
 1. Fix any comments from reviews.
 
-After the Fredhopper team has approved the suggested changes, they will **squash and merge** the pull request.
+After we have approved the suggested changes, we will **squash and merge** the pull request. Note, that we might request that you rebase and fix any conflicts that might prevent us from merging the pull request.
