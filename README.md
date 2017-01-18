@@ -7,7 +7,7 @@
 With the *Fredhopper/SAP Hybris Connector*, you can leverage the advanced on-site search, navigation, personalisation, and merchandising capabilities of Fredhopper in your hybris-based online marketplace.
 
 * [System Requirements](#system-requirements)
-* [Installation and Configuration](#installation-and configuration)
+* [Installation and Configuration](#installation-and-configuration)
 	* [Install the Extension](#install-the-extension)
 	* [Configure the Export Logic](#configure-the-export-logic)
 	* [Configure the Query Logic](#configure-the-query-logic)
@@ -77,7 +77,7 @@ After you have installed the connector locally, you need to export your data fro
 
 For more information, see [Generating and Publishing Data](https://github.com/fredhopper/hybris-connector/wiki/Generating-and-publishing-data).
 
-> **TIP:** You can also manage key configuration items from the hybris backoffice. For more information, see [Backoffice Management](https://github.com/fredhopper/hybris-connector/wiki/Back-office-management).
+> **TIP:** You can also manage key configuration items from the hybris backoffice. For more information, see [Backoffice Management](https://github.com/fredhopper/hybris-connector/wiki/Backoffice-management).
 
 ### Configure the Query Logic
 
