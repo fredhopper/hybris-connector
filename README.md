@@ -55,6 +55,8 @@ Before you can use the Fredhopper/SAP Hybris connector, you need to build the cu
 	`fh.instance.query.url` | The Fredhopper URL to query against.
 	`fh.instance.universe` | The Fredhopper universe to use.
 	`fh.query.maxretries` | Number of retries for any request before returning an error.
+
+        > **TIP:** For sample values, see [fredhoppersearch/project.properties](https://github.com/fredhopper/hybris-connector/blob/master/fredhoppersearch/project.properties). 
 1. Rebuild hybris.
 
 ### Configure the Export Logic
@@ -70,7 +72,7 @@ After you have installed the connector locally, you need to export your data fro
 	`name` | string | The attribute name. You need to specify it for all required languages.
 	`provider` | string | A Spring bean identifier which acts as the value provider for the attribute. 
 	
-	> NOTE: You can implement additional value providers if you have requirements that are not addressed by the existing providers.
+	> **NOTE:** You can implement additional value providers if you have requirements that are not addressed by the existing providers.
 1. Customize or override `DefaultFhCategoryDao` and `DefaultFhProductDao`.<br>These data access objects are responsible for fetching categories and products, respectively.
 1. To generate and publish your index to Fredhopper, run `ant all`, update the running system, and trigger the cron job `fredhopperIndexExportJob`.
 1. Connect to Fredhopper and verify your data has been correctly published.
