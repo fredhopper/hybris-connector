@@ -56,7 +56,7 @@ Before you can use the Fredhopper/SAP Hybris connector, you need to build the cu
 	`fh.instance.universe` | The Fredhopper universe to use. | `catalog01`
 	`fh.query.maxretries` | Number of retries for any request before returning an error. | `3`
 
-        > **TIP:** For sample values, see [fredhoppersearch/project.properties](https://github.com/fredhopper/hybris-connector/blob/master/fredhoppersearch/project.properties). 
+       > **TIP:** For the correct format of the key-value pairs and for sample values, see [fredhoppersearch/project.properties](https://github.com/fredhopper/hybris-connector/blob/master/fredhoppersearch/project.properties). 
 1. Rebuild hybris.
 
 ### Configure the Export Logic
